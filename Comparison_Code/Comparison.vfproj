@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<VisualStudioProject ProjectCreator="Intel Fortran" Keyword="Console Application" Version="11.0" ProjectIdGuid="{A741749B-BAF2-4DE2-A754-FF6094BD19FF}">
+	<Platforms>
+		<Platform Name="Win32"/>
+		<Platform Name="x64"/></Platforms>
+	<Configurations>
+		<Configuration Name="Debug|Win32">
+				<Tool Name="VFFortranCompilerTool" SuppressStartupBanner="true" DebugInformationFormat="debugEnabled" Optimization="optimizeDisabled" OpenMP="OpenMPParallelCode" WarnInterfaces="true" Traceback="true" BoundsCheck="true" RuntimeLibrary="rtMultiThreadedDebug" Interfaces="true"/>
+				<Tool Name="VFLinkerTool" LinkIncremental="linkIncrementalNo" SuppressStartupBanner="true" GenerateDebugInformation="true" SubSystem="subSystemConsole"/>
+				<Tool Name="VFResourceCompilerTool"/>
+				<Tool Name="VFMidlTool" SuppressStartupBanner="true"/>
+				<Tool Name="VFCustomBuildTool"/>
+				<Tool Name="VFPreLinkEventTool"/>
+				<Tool Name="VFPreBuildEventTool"/>
+				<Tool Name="VFPostBuildEventTool"/>
+				<Tool Name="VFManifestTool" SuppressStartupBanner="true"/></Configuration>
+		<Configuration Name="Release|Win32">
+				<Tool Name="VFFortranCompilerTool" SuppressStartupBanner="true" OpenMP="OpenMPParallelCode"/>
+				<Tool Name="VFLinkerTool" LinkIncremental="linkIncrementalNo" SuppressStartupBanner="true" SubSystem="subSystemConsole" HeapReserveSize="9999999" StackReserveSize="9999999"/>
+				<Tool Name="VFResourceCompilerTool"/>
+				<Tool Name="VFMidlTool" SuppressStartupBanner="true"/>
+				<Tool Name="VFCustomBuildTool"/>
+				<Tool Name="VFPreLinkEventTool"/>
+				<Tool Name="VFPreBuildEventTool"/>
+				<Tool Name="VFPostBuildEventTool"/>
+				<Tool Name="VFManifestTool" SuppressStartupBanner="true"/></Configuration>
+		<Configuration Name="Debug|x64">
+				<Tool Name="VFFortranCompilerTool" SuppressStartupBanner="true" DebugInformationFormat="debugEnabled" Optimization="optimizeDisabled" OpenMP="OpenMPParallelCode" WarnInterfaces="true" Traceback="true" BoundsCheck="true" RuntimeLibrary="rtMultiThreadedDebug" Interfaces="true"/>
+				<Tool Name="VFLinkerTool" LinkIncremental="linkIncrementalNo" SuppressStartupBanner="true" GenerateDebugInformation="true" SubSystem="subSystemConsole" HeapReserveSize="9999999" StackReserveSize="9999999"/>
+				<Tool Name="VFResourceCompilerTool"/>
+				<Tool Name="VFMidlTool" SuppressStartupBanner="true" TargetEnvironment="midlTargetAMD64"/>
+				<Tool Name="VFCustomBuildTool"/>
+				<Tool Name="VFPreLinkEventTool"/>
+				<Tool Name="VFPreBuildEventTool"/>
+				<Tool Name="VFPostBuildEventTool"/>
+				<Tool Name="VFManifestTool" SuppressStartupBanner="true"/></Configuration>
+		<Configuration Name="Release|x64">
+				<Tool Name="VFFortranCompilerTool" SuppressStartupBanner="true" OpenMP="OpenMPParallelCode"/>
+				<Tool Name="VFLinkerTool" LinkIncremental="linkIncrementalNo" SuppressStartupBanner="true" SubSystem="subSystemConsole" HeapReserveSize="999999999" StackReserveSize="999999999"/>
+				<Tool Name="VFResourceCompilerTool"/>
+				<Tool Name="VFMidlTool" SuppressStartupBanner="true" TargetEnvironment="midlTargetAMD64"/>
+				<Tool Name="VFCustomBuildTool"/>
+				<Tool Name="VFPreLinkEventTool"/>
+				<Tool Name="VFPreBuildEventTool"/>
+				<Tool Name="VFPostBuildEventTool"/>
+				<Tool Name="VFManifestTool" SuppressStartupBanner="true"/></Configuration></Configurations>
+	<Files>
+		<Filter Name="Header Files" Filter="fi;fd">
+		<File RelativePath=".\comparam.f90"/>
+		<File RelativePath=".\comtypes.f90"/>
+		<File RelativePath=".\comvar.f90"/></Filter>
+		<Filter Name="Resource Files" Filter="rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe">
+		<Filter Name="Brac/Brent">
+		<File RelativePath=".\sing_dim.f90"/></Filter>
+		<Filter Name="Broyden">
+		<File RelativePath=".\alexfuncs.f90"/>
+		<File RelativePath=".\alexutils.f90"/>
+		<File RelativePath=".\multi_dim.f90"/></Filter>
+		<Filter Name="delaunay">
+		<File RelativePath=".\delaunay_func.f90"/>
+		<File RelativePath=".\delaunay_int.f90"/>
+		<File RelativePath=".\delauny_int_basis.f90"/>
+		<File RelativePath=".\diaedg.f90"/>
+		<File RelativePath=".\dless.f90"/>
+		<File RelativePath=".\lrline.f90"/>
+		<File RelativePath=".\triangulation.f90"/></Filter>
+		<File RelativePath=".\clock.f90"/>
+		<File RelativePath=".\comfunc.f90"/>
+		<File RelativePath=".\comfuncform.f90"/></Filter>
+		<Filter Name="Source Files" Filter="f90;for;f;fpp;ftn;def;odl;idl">
+		<Filter Name="ENDGM">
+		<File RelativePath=".\sub_endo.f90"/>
+		<File RelativePath=".\sub_endo_constraint.f90"/>
+		<File RelativePath=".\sub_endo_euler.f90"/></Filter>
+		<Filter Name="EXGM">
+		<File RelativePath=".\sub_exo.f90"/>
+		<File RelativePath=".\sub_exo_constraint.f90"/>
+		<File RelativePath=".\sub_exo_euler.f90"/></Filter>
+		<Filter Name="HEGM">
+		<File RelativePath=".\sub_hy.f90"/>
+		<File RelativePath=".\sub_hy_constraint.f90"/>
+		<File RelativePath=".\sub_hy_euler.f90"/></Filter>
+		<Filter Name="Main">
+		<File RelativePath=".\comparison_main.f90"/>
+		<File RelativePath=".\sub_grids.f90"/>
+		<File RelativePath=".\sub_out.f90"/>
+		<File RelativePath=".\sub_sim.f90"/></Filter></Filter>
+		<File RelativePath=".\ReadMe.txt"/></Files>
+	<Globals/></VisualStudioProject>
