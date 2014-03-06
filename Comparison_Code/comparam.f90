@@ -11,7 +11,7 @@ logical,parameter::infinite = .false.         ! True: Infinite horizon setting; 
 integer,parameter::nit      = 99             ! number of maximal iteration steps/ number of years in finite setting
 integer,parameter::age      = 100             ! number of maximal iteration steps/ number of years in finite setting
 
-logical,parameter::smart    = .true.         ! 1: triangulation only in the first 50 iteration or if needed; 0:triangulation in every iteration
+logical,parameter::smart    = .false.         ! 1: triangulation only in the first 50 iteration or if needed; 0:triangulation in every iteration
 
 real(prec),parameter::epsi  = 1.0e-10         ! small number
 
@@ -35,26 +35,22 @@ real(prec),parameter::phi   = 0.5             ! Adjustment parameter for surviva
 
 ! II Grids
 ! Size of State Space
-<<<<<<< HEAD
-integer,parameter::nh  = 100                  ! Points in human capital grid (exogenous/endogenous)
-=======
-integer,parameter::nh  = 200                  ! Points in human capital grid (exogenous/endogenous)
->>>>>>> some minor adapiton of code
+integer,parameter::nh  = 300                 ! Points in human capital grid (exogenous/endogenous)
 integer,parameter::nx  = nh    		          ! Points in asset grid (exogenous/endogenous)
-integer,parameter::adx = 10                   ! Points in auxiliar grid - saving zero
+integer,parameter::adx = 5                  ! Points in auxiliar grid - saving zero
 integer,parameter::na  = nx-adx  	          ! Points in saving grid (exogenous)
 integer,parameter::nz  = nh                   ! Points in human capital grid (exogenous)
 integer,parameter::npt = nx*nh                ! Total Number of Grid Points
 
 ! Length of State Space
 real(prec),parameter::mina = 0.0              ! min. value of savings
-real(prec),parameter::maxa = 500.0            ! max. value of savings
+real(prec),parameter::maxa = 1000.0            ! max. value of savings
 real(prec),parameter::minz = 1.0              ! min. value of human capital savings
-real(prec),parameter::maxz = 500.0            ! max. value of human capital savings
+real(prec),parameter::maxz = 1000.0            ! max. value of human capital savings
 real(prec),parameter::minh = 0.95             ! min. value of human capital
-real(prec),parameter::maxh = 500.0            ! max. value of human capital
+real(prec),parameter::maxh = 1000.0            ! max. value of human capital
 real(prec),parameter::minx = 0.0              ! min. value of assets
-real(prec),parameter::maxx = 500.0            ! max. value of assets
+real(prec),parameter::maxx = 1000.0            ! max. value of assets
 
 ! Curvature of Grids
 real(prec),parameter::curv = 3.0              ! Curvature of grids
@@ -73,10 +69,10 @@ real(prec),parameter::tolbro = 1.0e-12         ! abolute deviation of function v
 real(prec),parameter::maxstp = 2.0            ! 
 
 !V Simulation
-real(prec),parameter::x0min = 40.0            ! Lower bound for initial assets for simulation
-real(prec),parameter::x0max = 60.0            ! Upper bound for initial assets
+real(prec),parameter::x0min = 10.0            ! Lower bound for initial assets for simulation
+real(prec),parameter::x0max = 100.0            ! Upper bound for initial assets
 real(prec),parameter::h0min = 50.0            ! Lower bound for initial human capital
-real(prec),parameter::h0max = 70.0            ! Upper Bound for initial human capital
+real(prec),parameter::h0max = 100.0            ! Upper Bound for initial human capital
 integer,parameter   ::nsim  = 10               ! number of simulations
   
 end module comparam

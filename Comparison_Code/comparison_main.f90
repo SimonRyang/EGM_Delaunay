@@ -18,10 +18,10 @@ if (algorithm .eq. 3 .or. algorithm .eq. 4) call sub_hy             ! Method wit
 ! Producing output
 
 print*, '*************** Simulation ************* '
-call sub_sim                ! Running Simulations to Compute Euler Errors
+!call sub_sim                ! Running Simulations to Compute Euler Errors
 
 call sub_out                ! Save Output in txt.file
  
-pause   
+!pause   
     
 end program comparison_main

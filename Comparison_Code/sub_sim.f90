@@ -15,7 +15,7 @@ real(prec):: vx,vh
 real(prec),dimension(age)::xex,hex,cex,kex,vex,xen,hen,cen,ken,ven,xhy,hhy,chy,khy,vhy
 
 real(prec),dimension(age-1,nsim,nsim)::ecex,ekex,ecen,eken,echy,ekhy
-real(prec)::acx,akx,acn,akn,acy,aky,mcx,mkx,mcn,mkn,mcy,mky
+
 
 integer sxc,shc,gc
 
@@ -278,14 +278,22 @@ akx = log(akx)/log(10.0)
 akn = log(akn)/log(10.0)
 aky = log(aky)/log(10.0)
 
-print* , '     EXGM     ENDGM      HEGM'
-print* , 'Maximum log10 Euler Error for consumption'
-write (*, '(3f10.2)') mcx,mcn,mcy
-print* , 'Average log10 Euler Error for consumption'
-write (*, '(3f10.2)') acx,acn,acy 
-print* , 'Maximum log10 Euler Error for investment'
-write (*, '(3f10.2)') mkx,mkn,mky 
-print* , 'Average log10 Euler Error for investment'
-write (*, '(3f10.2)') akx,akn,aky 
+!print* , '     EXGM     ENDGM      HEGM'
+!print* , 'Maximum log10 Euler Error for consumption'
+!write (*, '(3f10.2)') mcx,mcn,mcy
+!print* , 'Average log10 Euler Error for consumption'
+!write (*, '(3f10.2)') acx,acn,acy 
+!print* , 'Maximum log10 Euler Error for investment'
+!write (*, '(3f10.2)') mkx,mkn,mky 
+!print* , 'Average log10 Euler Error for investment'
+!write (*, '(3f10.2)') akx,akn,aky 
+
+print* , '     Max_c  Max_i  Average_c Average_i '
+print* , 'ENDGM'
+write (*, '(4f10.2)') mcn, mkn, acn, akn
+print* , 'HEGM'
+write (*, '(4f10.2)') mcy, mky, acy, aky 
+print* , 'EXGM'
+write (*, '(4f10.2)') mcx, mkx, acx, akx
 
 end subroutine sub_sim

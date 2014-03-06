@@ -54,6 +54,9 @@ real(prec),dimension(4,3)::  time_method             ! Computing time for algori
 real(prec),dimension(3)::    timeins                 ! Computing time in seconds
 integer,dimension(3)::       saveit                  ! number of iteration until convergence 
 
+! Error measure in simulation
+real(prec)::acx,akx,acn,akn,acy,aky,mcx,mkx,mcn,mkn,mcy,mky
+
 ! Auxiliary variables for functions
 integer:: xc,hc,it                                  ! Grid point marker
 logical,dimension(nx,nh):: marker                   ! marker if borrowing constraint is binding in EXGM
