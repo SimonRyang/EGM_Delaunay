@@ -20,7 +20,7 @@
 \usepackage{theorem}
 \usepackage{epstopdf}
 \usepackage{makeidx}
-\usepackage[left=1in,right=1in,top=1in,bottom=1in]{geometry}%
+\usepackage[left=1in,right=1in,top=1in,bottom=1in]{geometry}
 \setcounter{MaxMatrixCols}{30}
 \newtheorem{theorem}{Theorem}
 \newtheorem{acknowledgement}[theorem]{Acknowledgement}
@@ -46,6 +46,11 @@
 \newtheorem{summary}[theorem]{Summary}
 \newtheorem{observation}{Observation}
 \newtheorem{result}{Result}
+
+\newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}} % linksbündig mit Breitenangabe
+\newcolumntype{C}[1]{>{\centering\arraybackslash}p{#1}} % zentriert mit Breitenangabe
+\newcolumntype{R}[1]{>{\raggedleft\arraybackslash}p{#1}} % rechtsbündig mit Breitenangabe
+
 \begin{document}
 
 \title{Endogenous Grids in Higher Dimensions: Delaunay Interpolation and Hybrid Methods\thanks{We thank Johannes Brumm, Christopher Carroll, Michael Reiter and seminar participants at University of Cologne, the 2012 CEF and the Cologne Macroeconomic Workshop 2012 for helpful comments.}}
@@ -137,7 +142,7 @@ f\left( i_{t}\right) =\gamma\frac{i_{t}^{1-\alpha}-1}{1-\alpha}
 \]
 for curvature parameter~$\alpha>0$. As to the functional form of the per-period survival probability we follow~\citeN{hall07} and assume that
 \[
-s\left(  h_{t}\right)  =1-\phi\frac{1}{1+h_{t}}\text{.}%
+s\left( h_{t}\right) = 1-\phi\frac{1}{1+h_{t}}\text{.}
 \]
 
 We assume that the value function is strictly concave and unique maximizers are continuous policy functions, cf.~\citeN{stokey89}. It is well-known that these conditions may not hold in human capital models because endogenous human capital formation may lead to non-convexities (value functions may have concave and convex regions). Hence, first-order conditions are generally necessary but not sufficient. In applications, one way to accommodate this is to use methods developed in this paper at the calibration stage of the model (where speed is an issue). Upon convergence, one can then test for uniqueness by checking for alternative solutions by use of global methods. To focus our analysis we do not further address these aspects here.
@@ -148,29 +153,30 @@ The optimal solution is fully characterized by the following set of first-order 
 \begin{subequations}
 \label{eq:eqsyst}
 \begin{align}
-c_{t}^{-\theta}  &  = \beta R\left[ 1-\phi\frac{1}{1+h_{t+1}}\right]\text{$V_{t+1_{a}}$}\left( a_{t+1},h_{t+1}\right) \label{Foc1} \\
-i_{t}^{-\alpha}  &  = \frac{R}{\left( 1-\delta\right)}\frac{\text{$V_{t+1_{a}}$}\left( a_{t+1},h_{t+1}\right)  }{\frac{\phi}{\left[1+h_{t+1}-\phi\right]  \left[  1+h_{t+1}\right]  }V_{t+1}\left(a_{t+1},h_{t+1}\right)  +\text{$V_{t+1_{h}}$}\left(  a_{t+1},h_{t+1}\right)} \label{Foc2} \\
-a_{t+1}  &  = R\left( a_{t}+wh_{t}-c_{t}-i_{t}\right) \\
-h_{t+1}  &  = \left( 1-\delta\right)  \left(  h_{t}+f\left(  i_{t}\right)\right) \\
+c_{t}^{-\theta}  &  = \beta R \left[ 1-\phi\frac{1}{1+h_{t+1}}\right] \text{$V_{t+1_{a}}$}\left( a_{t+1},h_{t+1}\right) \label{Foc1} \\
+i_{t}^{-\alpha}  &  = \frac{R}{\left( 1-\delta\right)} \frac{\text{$V_{t+1_{a}}$}\left( a_{t+1},h_{t+1}\right)}{\frac{\phi}{\left[1+h_{t+1}-\phi\right]  \left[ 1+h_{t+1}\right]}V_{t+1}\left(a_{t+1},h_{t+1}\right) +\text{$V_{t+1_{h}}$}\left( a_{t+1},h_{t+1}\right)} \label{Foc2} \\
+a_{t+1}  &  = R \left( a_{t}+wh_{t}-c_{t}-i_{t}\right) \\
+h_{t+1}  &  = \left( 1-\delta\right) \left( h_{t}+f\left( i_{t}\right)\right) \\
 a_{t+1}  &  \geq0.
 \end{align}
 \end{subequations}
-$V_{t_{a}}$ and $V_{t_{h}}$ are derivatives of the value function with respect to financial assets and human capital, respectively. The first equation relates today's consumption to consumption of tomorrow, whereas the second equation relates costs and gains of investing in human capital. Notice that constraint~(\ref{eq:hinequ}) can be dropped because of the lower Inada condition of the human capital investment function~$f(i)$. Searching for the solution of this model amounts to finding the four optimal policies for consumption, $c_{t}\left( \cdot,\cdot\right)$, investment in human capital, $i_{t}\left(  \cdot,\cdot\right)$, next period's financial assets, $a_{t+1}\left( \cdot,\cdot\right)$, and next period's human capital, $h_{t+1}\left(  \cdot,\cdot\right)$, as functions of the two endogenous state variables, financial assets, $a_{t}$, and human capital, $h_{t}$, that solve equation system~(\ref{eq:eqsyst}).
+$V_{t_{a}}$ and $V_{t_{h}}$ are derivatives of the value function with respect to financial assets and human capital, respectively. The first equation relates today's consumption to consumption of tomorrow, whereas the second equation relates costs and gains of investing in human capital. Notice that constraint~(\ref{eq:hinequ}) can be dropped because of the lower Inada condition of the human capital investment function~$f(i)$. Searching for the solution of this model amounts to finding the four optimal policies for consumption, $c_{t}\left( \cdot,\cdot\right)$, investment in human capital, $i_{t}\left( \cdot,\cdot\right)$, next period's financial assets, $a_{t+1}\left( \cdot,\cdot\right)$, and next period's human capital, $h_{t+1}\left(  \cdot,\cdot\right)$, as functions of the two endogenous state variables, financial assets, $a_{t}$, and human capital, $h_{t}$, that solve equation system~(\ref{eq:eqsyst}).
 
 The envelope conditions are:
 \begin{subequations}
 \begin{align}
 \text{$V_{t_{a}}$}\left( a_{t},h_{t}\right)  &  =u_{c}=c_{t}^{-\theta} \label{Envelope1}\\
-\text{$V_{t_{h}}$}\left( a_{t},h_{t}\right)  &  =\left(  w+\frac{1}{f_{i}}\right) u_{c}=\left( w+\frac{1}{i_{t}^{-\alpha}}\right) c_{t}^{-\theta}\text{.} \label{Envelope2}
+\text{$V_{t_{h}}$}\left( a_{t},h_{t}\right)  &  =\left( w+\frac{1}{f_{i}}\right) u_{c}=\left( w+\frac{1}{i_{t}^{-\alpha}}\right) c_{t}^{-\theta}\text{.} \label{Envelope2}
 \end{align}
 \end{subequations}
-Using (\ref{Foc1}) together with (\ref{Envelope1}) gives the standard Euler equation of consumption.\footnote{For derivation of~(\ref{eq:eqsyst}) and the Envelope conditions see Appendix A.}
+Using (\ref{Foc1}) together with (\ref{Envelope1}) gives the standard Euler equation of consumption.\footnote{For derivation of~(\ref{eq:eqsyst}) and the Envelope conditions see Appendix~A.}
 
 \subsection{Calibration}
 
-We choose the same parameterization of the model for all solution methods described in section. The coefficient of relative risk aversion parameter is set to $\theta=0.5$ to assure a positive value of life. We set the time preference rate to $\rho=0.04$. In order to achieve incentives to save in the finite horizon setting without introducing uncertainty we set an interest rate of $R-1=0.05$. In the infinite horizon setting we set an interest rate of $R-1=0.035$ smaller than $\rho$ to assure that financial assets are bounded. For the depreciation rate of human capital we take $\delta=0.05.$ The parameters of the human capital production function are $\alpha=0.65$ and $\gamma=1.0$, respectively. The wage rate $w$ is set to $0.1$. The survival rate parameter is $\phi=0.5$.
+We choose the same parameterization of the model for all solution methods described in section~\ref{s:solmeth}. The coefficient of relative risk aversion parameter is set to $\theta=0.5$ to assure a positive value of life. We set the time preference rate to $\rho=0.04$. In order to achieve incentives to save in the finite horizon setting without introducing uncertainty we set an interest rate of $R-1=0.05$. In the infinite horizon setting we set an interest rate of $R-1=0.035$ smaller than $\rho$ to assure that financial assets are bounded. For the depreciation rate of human capital we take $\delta=0.05.$ The parameters of the human capital production function are $\alpha=0.65$ and $\gamma=1.0$, respectively. The wage rate $w$ is set to $0.1$. The survival rate parameter is $\phi=0.5$.
 
 \section{Solution Methods}
+\label{s:solmeth}
 
 The main idea of all methods is to exploit the FOCs~(\ref{Foc1}) and~(\ref{Foc2}) to compute optimal policies at discrete points that constitute a mesh in the state space. All three methods use the recursive nature of the problem. Correspondingly, in the finite horizon version the model is solved backwards from the last to the first period ($t=T,...,0$). In the infinite horizon implementation the iteration continues until convergence on policy functions.
 
@@ -193,27 +199,27 @@ i_{T}\left( \cdot,\cdot\right)  &  =0\text{.}
 \end{align*}
 Using the above in equations~(\ref{Envelope1}) and~(\ref{Envelope2}) the value function and its derivatives with respect to $a$ and $h$ in $T$ are
 \begin{align*}
-V_{T}\left(  a_{T}^{k},h_{T}^{j}\right)   &  =\frac{1}{1-\theta}\left[c_{T}^{k,j}\right]  ^{1-\theta}\\
-\text{$V_{T_{a}}$}\left(  a_{T}^{k},h_{T}^{j}\right)   &  =\left[  c_{T}^{k,j}\right]  ^{-\theta}\\
-\text{$V_{T_{h}}$}\left(  a_{T}^{k},h_{T}^{j}\right)   &  =\left[  w+ \left(i_{T}^{k,j}\right)  ^{\alpha}\right]  \left[  c_{T}^{k,j}\right]  ^{-\theta}=w\left[  c_{T}^{k,j}\right]  ^{-\theta}\text{.}
+V_{T}\left(  a_{T}^{k},h_{T}^{j}\right)   &  =\frac{1}{1-\theta}\left[c_{T}^{k,j}\right]^{1-\theta}\\
+\text{$V_{T_{a}}$}\left( a_{T}^{k},h_{T}^{j}\right)   &  =\left[  c_{T}^{k,j}\right]^{-\theta}\\
+\text{$V_{T_{h}}$}\left( a_{T}^{k},h_{T}^{j}\right)   &  =\left[  w+ \left(i_{T}^{k,j}\right)^{\alpha}\right] \left[  c_{T}^{k,j}\right]^{-\theta}=w\left[ c_{T}^{k,j}\right]^{-\theta}\text{.}
 \end{align*}
 
-\item Given functions $V_{t+1}$, $V_{t+1_{a}}$ and $V_{t+1_{h}}$ from the previous step iterate backwards on $t=T-1,...,0$. For each $\left(  a_{t}^{k},h_{t}^{j}\right)  \in\mathcal{G}^{a,h}$ :
+\item Given functions $V_{t+1}$, $V_{t+1_{a}}$ and $V_{t+1_{h}}$ from the previous step iterate backwards on $t=T-1,...,0$. For each $\left( a_{t}^{k},h_{t}^{j}\right) \in\mathcal{G}^{a,h}$ :
 
 \begin{enumerate}
-\item \label{EXGM interp}Solve the two-dimensional equation system
+\item \label{EXGM interp} Solve the two-dimensional equation system
 \begin{align*}
 \left[ c_{t}^{k,j}\right]^{-\theta}  &  =\beta R\left( 1-\phi\frac{1}{1+\left( 1-\delta\right) \left(  h_{t}^{j}+\frac{1}{1-\alpha}\left(i_{t}^{k,j}\right)^{1-\alpha}\right)}\right) \\
-&  \text{$V_{t+1_{a}}$}\left[\overset{a_{t+1}^{k,j}}{\overbrace{R\left(a_{t}^{k}+wh_{t}^{j}-c_{t}^{k,j}-i_{t}^{k,j}\right)  }},\overset{h_{t+1}^{k,j}}{\overbrace{\left(  1-\delta\right)  \left(  h_{t}^{j}+\frac{1}{1-\alpha}\left(  i_{t}^{k,j}\right)  ^{1-\alpha}\right)  }}\right] \\
-\left[  i_{t}^{k,j}\right]^{-\alpha}  &  =\frac{R}{\left(  1-\delta\right)}\frac{\text{$V_{t+1_{a}}$}\left[  a_{t+1}^{k,j},h_{t+1}^{k,j}\right]}{\frac{\phi}{\left(  1+h_{t+1}^{k,j}-\phi\right)  \left(  1+h_{t+1}^{k,j}\right)  }V_{t+1}\left[  a_{t+1}^{k,j},h_{t+1}^{k,j}\right]+\text{$V_{t+1_{h}}$}\left[  a_{t+1}^{k,j},h_{t+1}^{k,j}\right]}
+&  \text{$V_{t+1_{a}}$}\left[\overset{a_{t+1}^{k,j}}{\overbrace{R\left(a_{t}^{k}+wh_{t}^{j}-c_{t}^{k,j}-i_{t}^{k,j}\right)}},\overset{h_{t+1}^{k,j}}{\overbrace{\left( 1-\delta\right) \left( h_{t}^{j}+\frac{1}{1-\alpha}\left( i_{t}^{k,j}\right)^{1-\alpha}\right)}}\right] \\
+\left[ i_{t}^{k,j}\right]^{-\alpha}  &  =\frac{R}{\left( 1-\delta\right)}\frac{\text{$V_{t+1_{a}}$}\left[ a_{t+1}^{k,j},h_{t+1}^{k,j}\right]}{\frac{\phi}{\left( 1+h_{t+1}^{k,j}-\phi\right) \left( 1+h_{t+1}^{k,j}\right)}V_{t+1}\left[ a_{t+1}^{k,j},h_{t+1}^{k,j}\right]+\text{$V_{t+1_{h}}$}\left[  a_{t+1}^{k,j},h_{t+1}^{k,j}\right]}
 \end{align*}
 for $c_{t}^{k,j}$ and $i_{t}^{k,j}$ using Broyden's method.
 
 \item Save/Update both the value function and its derivatives
 \begin{align*}
-V_{t}\left(  a_{t}^{k},h_{t}^{j}\right)   &  =\frac{1}{1-\theta}\left[c_{t}^{k,j}\right]  ^{1-\theta}+\beta\left(  1-\phi\frac{1}{1+h_{t+1}^{k,j}}\right)  V_{t+1}(a_{t+1}^{k,j},h_{t+1}^{k,j})\\
-\text{$V_{t+1_{a}}$}\left(  a_{t}^{k},h_{t}^{j}\right)   &  =\left[c_{t}^{k,j}\right]  ^{-\theta}\\
-\text{$V_{t+1_{h}}$}\left(  a_{t}^{k},h_{t}^{j}\right)   &  =\left[  w+\left(  i_{T}^{k,j}\right)  ^{\alpha} \right]  \left[  c_{t}^{k,j}\right]^{-\theta}\text{.}
+V_{t}\left( a_{t}^{k},h_{t}^{j}\right)  &  =\frac{1}{1-\theta}\left[c_{t}^{k,j}\right]^{1-\theta}+\beta\left( 1-\phi\frac{1}{1+h_{t+1}^{k,j}}\right) V_{t+1}(a_{t+1}^{k,j},h_{t+1}^{k,j})\\
+\text{$V_{t+1_{a}}$}\left( a_{t}^{k},h_{t}^{j}\right)  &  =\left[ c_{t}^{k,j}\right]^{-\theta}\\
+\text{$V_{t+1_{h}}$}\left( a_{t}^{k},h_{t}^{j}\right)  &  =\left[ w+\left( i_{T}^{k,j}\right)^{\alpha} \right] \left[  c_{t}^{k,j}\right]^{-\theta}\text{.}
 \end{align*}
 
 \end{enumerate}
@@ -231,7 +237,7 @@ In this case all grid-points in row $\mathcal{G}^{\bullet,j}$ have the same valu
 \begin{tabular}
 [c]{p{15cm}}
 \\
-\multicolumn{1}{c}{\raisebox{-0cm}{\includegraphics[trim=0.000000in 0.000000in -0.107685in 0.034861in, height=6.0231cm, width=9.0369cm]{Abbildungen/exo.eps}}}\\
+\multicolumn{1}{c}{{\includegraphics[height=6.0cm, width=9.0cm]{Abbildungen/exo.eps}}}\\
 {\footnotesize {Interpolation on rectilinear grids. In any row locate the two columns ($G^{k,\bullet}$ and $G^{k+1,\bullet}$) that form the most narrow bracket of $a_{t+1}$. In any column locate the two rows ($G^{\bullet,j}$ and $G^{\bullet,j+1}$) that form the most narrow bracket of $h_{t+1}$. Interpolation nodes: $(k,j);(k+1,j);(k,j+1);(k+1,j+1)$.}}%
 \end{tabular}
 \label{Rectilinear_Grid}
@@ -320,8 +326,8 @@ In EXGM the grid is rectilinear by construction whereas in ENDGM the endogenousl
 [c]{cc}
 & \\
 Panel (a) & Panel (b)\\
-\raisebox{-0cm}{\includegraphics[trim=0.000000in 0.000000in -0.030122in 0.056605in, height=6.0231cm, width=7.5278cm]{Abbildungen/endo_grid_1.eps}} &
-\raisebox{-0cm}{\includegraphics[trim=0.000000in 0.000000in 0.015176in -0.052450in, height=6.0231cm, width=7.5278cm]{Abbildungen/endo_grid_2.eps}} \\
+{\includegraphics[height=6.0cm, width=7.5cm]{Abbildungen/endo_grid_1.eps}} &
+{\includegraphics[height=6.0cm, width=7.5cm]{Abbildungen/endo_grid_2.eps}} \\
 \multicolumn{2}{p{15cm}}{{\footnotesize Interpolation on irregular grids. Multidimensional interpolation cannot be separated into several one-dimensional interpolations as the values of $a$ and $h$ change in each column or row.}}
 \end{tabular}
 \label{Irregular_Grid}
@@ -336,11 +342,11 @@ We explain the geometric construction of the Voronoi diagram by use of figure~\r
 [c]{cc}
 & \\
 Panel (a) & Panel (b)\\
-\raisebox{-0cm}{\includegraphics[trim=0.000000in 0.000000in -0.091263in 0.008198in, height=6.0231cm, width=6.0231cm]{Abbildungen/Voronoi_2_shape.eps}} &
-\raisebox{-0cm}{\includegraphics[trim=0.000000in 0.000000in 0.223763in 0.026642in, height=6.0231cm, width=6.0231cm]{Abbildungen/Voronoi_1_shape.eps}} \\
+{\includegraphics[height=6.0cm, width=6.0cm]{Abbildungen/Voronoi_1_shape.eps}} &
+{\includegraphics[height=6.0cm, width=6.0cm]{Abbildungen/Voronoi_2_shape.eps}} \\
 Panel (c) & Panel (d)\\
-\raisebox{-0cm}{\includegraphics[trim=0.000000in 0.000000in 0.018252in -0.004782in, height=6.0231cm, width=6.0231cm]{Abbildungen/Voronoi_3.eps}} &
-\raisebox{-0cm}{\includegraphics[trim=0.000000in 0.000000in 0.020281in -0.081291in, height=6.0231cm, width=6.0231cm]{Abbildungen/Delaunay_!.eps}} \\
+{\includegraphics[height=6.0cm, width=6.0cm]{Abbildungen/Voronoi_3.eps}} &
+{\includegraphics[height=6.0cm, width=6.0cm]{Abbildungen/Delaunay_!.eps}} \\
 \multicolumn{2}{p{15cm}}{{\footnotesize Panel (a): Generating the Voronoi polygon: Edges are perpendicular bisectors of lines connecting neighboring points. Panel (b): Several Voronoi tiles in mesh grid. Panel (c): Circle with center at vertex includes three closest points. Panel (d): Delaunay Triangulation: Vertices are nearest neighbors of all points within triangle.}}
 \end{tabular}
 \label{Delaunay Triangulation}
@@ -350,16 +356,16 @@ The computational implementation of a Delaunay triangulation is done by the so-c
 In our example, we first visit triangle~$P_{2},P_{3},P_{5}$ in Panel~(c). As shown in the figure, the circumcircle contains point~$P_{4}$. Hence, triangle~$P_{2},P_{3},P_{5}$ is not legal. Therefore, flip the edge opposite of $P_{5}$ connecting~$P_{5}$ with~$P_{4}$. This operation creates two new triangles, $P_{3},P_{4},P_{5}$ and~$P_{2},P_{4},P_{5}$, cf.~Panel~(d) of the figure, which must be checked for legality. In our example, triangle~$P_{3},P_{4},P_{5}$ is legal because the circumcircle does not contain other existing points from the point set. The process is recursive and never wanders away from any point~$P$ (point~$P_{5}$ in our example). The only edges that can be made illegal by inserting a point $P$ are edges opposite $P$ (in triangles with~$P$ as a vertex).\footnote{This procedure is described in \shortciteN{numerical3rd}. We use the numerical package geompack3 based on~\citeN{Joe91} for both the Delaunay triangulation and the ``visibility walk'', described next.}
 
 \begin{figure}[htb] \centering
-\caption{Incremental Algorithm}%
+\caption{Incremental Algorithm}
 \begin{tabular}
 [c]{cc}
 & \\
 Panel (a) & Panel (b) \\
-\raisebox{-0cm}{\includegraphics[trim=0.000000in 0.000000in 0.020538in -0.032635in, height=6.0231cm, width=6.0231cm]{Abbildungen/Incremental_0.eps}} &
-\raisebox{-0cm}{\includegraphics[trim=0.000000in 0.000000in 0.001972in -0.020664in, height=6.0226cm, width=6.0226cm]{Abbildungen/Incremental_1.eps}} \\
+{\includegraphics[height=6.0cm, width=6.0cm]{Abbildungen/Incremental_0.eps}} &
+{\includegraphics[height=6.0cm, width=6.0cm]{Abbildungen/Incremental_1.eps}} \\
 Panel (c) & Panel (d) \\
-\raisebox{-0cm}{\includegraphics[trim=0.000000in 0.000000in -0.043375in -0.020664in, height=6.0226cm, width=6.0226cm]{Abbildungen/Incremental_2.eps}} &
-\raisebox{-0cm}{\includegraphics[trim=0.000000in 0.000000in 0.026288in -0.018664in, height=6.0226cm, width=6.0226cm]{Abbildungen/Incremental_3.eps}} \\
+{\includegraphics[height=6.0cm, width=6.0cm]{Abbildungen/Incremental_2.eps}} &
+{\includegraphics[height=6.0cm, width=6.0cm]{Abbildungen/Incremental_3.eps}} \\
 \multicolumn{2}{p{15cm}}{{\footnotesize Panel (a): Three "fictional" points added to constitute the first triangle which includes all "real" points of the point set. Panel (b): Point added to existing Delaunay Triangulation and connected to vertices of enclosing triangle. Panel (c): Circumcircle contains a point. and is therefore illegal triangle. Panel (d): Circumcircle does not contain any point and is therefore legal.}}
 \end{tabular}
 \label{Delaunay Triangulation Computational}
@@ -373,7 +379,7 @@ At interpolation, to locate a (query) point~$X$ in a given planar triangular mes
 \begin{tabular}
 [c]{p{15cm}}
 \\
-\multicolumn{1}{c}{\raisebox{-0cm}{\includegraphics[trim=0.000000in 0.000000in 0.007436in -0.005465in, height=6.1cm, width=6.0275cm]{Abbildungen/visibility_walk_2.eps}}} \\
+\multicolumn{1}{c}{{\includegraphics[height=6.0cm, width=7.5cm]{Abbildungen/visibility_walk_2.eps}}} \\
 {\footnotesize Visibility walk in Delaunay triangulation - Locate triangle $\Delta_{X}$ containing $X$ with initial guess $\Delta_{1}$. If the line supporting $e$ separates $\Delta$ from $X$, which reduces to a single orientation test, then the next visited triangle is the neighbor of $\Delta$ through $e$.}
 \end{tabular}
 \label{Visibility walk}
@@ -396,18 +402,18 @@ We next consider a hybrid method (HEGM) which combines EXGM and ENDGM. Specifica
 In the second step, policy function~$i_{t}$ is used to get the second endogenous state variable,~$h_{t+1}$. Exploiting the second FOC we get the second policy function,~$c_{t}$. In the third step, we compute the corresponding state variable~$a_{t}$ from the budget constraint. The implementation steps are as follows:
 
 \begin{enumerate}
-\item To initialize HEGM predefine two grids, one for gross savings $s$, $\mathcal{G}^{s}\equiv\left\{  s^{1},s^{2},...,s^{K}\right\}  $ and one for human capital $h$, $\mathcal{G}^{h}\equiv\left\{  h^{1},h^{2},...,h^{J}\right\}$ and form $\mathcal{G}^{s,h}=\mathcal{G}^{s}\otimes\mathcal{G}^{h}$
+\item To initialize HEGM predefine two grids, one for gross savings $s$, $\mathcal{G}^{s}\equiv\left\{  s^{1},s^{2},...,s^{K}\right\}  $ and one for human capital $h$, $\mathcal{G}^{h}\equiv\left\{ h^{1},h^{2},...,h^{J}\right\}$ and form $\mathcal{G}^{s,h}=\mathcal{G}^{s}\otimes\mathcal{G}^{h}$
 
 \item In period~$T$, define an initial guess for $\mathcal{G}^{a,h}=\mathcal{G}^{a}\otimes\mathcal{G}^{h}$ and compute
 \begin{align*}
-c_{T}\left(  \cdot,\cdot\right)   &  =a_{T}^{k,j}+wh_{T}^{j}\\
-i_{T}\left(  \cdot,\cdot\right)   &  =0
+c_{T}\left( \cdot,\cdot\right)  &  =a_{T}^{k,j}+wh_{T}^{j}\\
+i_{T}\left( \cdot,\cdot\right)  &  =0
 \end{align*}
 for all $\left(  a_{T}^{k,j},h_{T}^{j}\right)  \in\mathcal{G}^{a,h}$ and
 \begin{align*}
-V_{T}\left(  a_{T}^{k,j},h_{T}^{j}\right)   &  =\frac{1}{1-\theta}\left[c_{T}^{k,j}\right]  ^{1-\theta}\\
-\text{$V_{T_{a}}$}\left(  a_{T}^{k,j},h_{T}^{j}\right)   &  =\left[c_{T}^{k,j}\right]  ^{-\theta}\\
-\text{$V_{T_{h}}$}\left(  a_{T}^{k,j},h_{T}^{j}\right)   &  =\left[  w+\left(i_{T}^{k,j}\right)  ^{\alpha}\right]  \left[  c_{T}^{k,j}\right]  ^{-\theta}.
+V_{T}\left(  a_{T}^{k,j},h_{T}^{j}\right)  &  =\frac{1}{1-\theta}\left[c_{T}^{k,j}\right]  ^{1-\theta}\\
+\text{$V_{T_{a}}$}\left( a_{T}^{k,j},h_{T}^{j}\right)  &  =\left[ c_{T}^{k,j}\right]^{-\theta}\\
+\text{$V_{T_{h}}$}\left( a_{T}^{k,j},h_{T}^{j}\right)  &  =\left[ w+\left(i_{T}^{k,j}\right)^{\alpha}\right] \left[  c_{T}^{k,j}\right]^{-\theta}.
 \end{align*}
 
 \item Given functions $V_{t+1}$, $V_{t+1_{a}}$ and $V_{t+1_{a}}$ from the previous step iterate backwards on $t=T-1,...,0$. For each\ $\left(s^{k},h^{j}\right)  \in\mathcal{G}^{s,h}$:
@@ -415,7 +421,7 @@ V_{T}\left(  a_{T}^{k,j},h_{T}^{j}\right)   &  =\frac{1}{1-\theta}\left[c_{T}^{k
 \begin{enumerate}
 \item \label{HEGM solver}Solve the one-dimensional equation system for $i_{t}^{k,j}$
 \[
-i_{t}^{k,j}=\left[  \frac{R}{\left(  1-\delta\right)  }\frac{\text{$V_{t+1_{a}} $}\left[  \overset{a_{t+1}^{k}}{\overbrace{Rs^{k}}},\overset{h_{t+1}^{k,j}}{\overbrace{\left(  1-\delta\right)  \left(h_{t}^{j}+\frac{1}{1-\alpha}\left( i_{t}^{k,j}\right)  ^{1-\alpha}\right)  }}\right]  }{\frac{\phi}{\left(  1+h_{t+1}^{k,j}-\phi\right)  \left(  1+h_{t+1}^{k,j}\right)}V_{t+1}\left[  a_{t+1}^{k},h_{t+1}^{k,j}\right] +\text{$V_{t+1_{h}}$}\left[a_{t+1}^{k},h_{t+1}^{k,j}\right]  }\right]  ^{-\frac{1}{\alpha}}
+i_{t}^{k,j}=\left[  \frac{R}{\left(  1-\delta\right)  }\frac{\text{$V_{t+1_{a}} $}\left[  \overset{a_{t+1}^{k}}{\overbrace{Rs^{k}}},\overset{h_{t+1}^{k,j}}{\overbrace{\left( 1-\delta\right)  \left(h_{t}^{j}+\frac{1}{1-\alpha}\left( i_{t}^{k,j}\right)  ^{1-\alpha}\right)}}\right]  }{\frac{\phi}{\left( 1+h_{t+1}^{k,j}-\phi\right)  \left( 1+h_{t+1}^{k,j}\right)}V_{t+1}\left[ a_{t+1}^{k},h_{t+1}^{k,j}\right] +\text{$V_{t+1_{h}}$}\left[a_{t+1}^{k},h_{t+1}^{k,j}\right] }\right]^{-\frac{1}{\alpha}}
 \]
 using Broyden's method.\ This includes several computations of $a_{t+1}^{k}$ and $h_{t+1}^{k,j}$ and hybrid interpolations---described below---on $V_{t+1}$, $V_{t+1_{a}}$and $V_{t+1_{h}}$.
 
@@ -466,7 +472,7 @@ with $p=\frac{a_{X}-a_{A}}{a_{B}-a_{A}}$, $r=\frac{a_{X}-a_{C}}{a_{D}-a_{C}}$ an
 \begin{tabular}
 [c]{p{15cm}}
 \\
-\multicolumn{1}{c}{\raisebox{-0cm}{\includegraphics[trim=0.000000in 0.000000in 0.039504in -0.007214in, height=6.0231cm, width=9.0325cm]{Abbildungen/hybrid_3.eps}}}\\
+\multicolumn{1}{c}{{\includegraphics[height=6.0cm, width=9.0cm]{Abbildungen/hybrid_3.eps}}}\\
 {\footnotesize Hybrid Interpolation. First, in the exogenous dimension, locate the two rows $G^{\bullet,j}$ and $G^{\bullet,j+1}$ that form the most narrow bracket of $h_{t+1}$. Second, locate in these two rows the grid-points that form the most narrow bracket of $a_{t+1}$. Interpolation nodes: $(k,j)$; $(k,j+1)$; $(l,j+1)$; $(l+1,j+1)$.}
 \end{tabular}
 \label{Hybrid interpolation}
@@ -474,7 +480,7 @@ with $p=\frac{a_{X}-a_{A}}{a_{B}-a_{A}}$, $r=\frac{a_{X}-a_{C}}{a_{D}-a_{C}}$ an
 
 \section{Results}
 
-We present results separately for the finite and infinite horizon versions of our model. Throughout, we use triple exponential grids for $a$, $h$, $s$, $z$, respectively. We set the range of grid $G_{s}$ to $\left[ 0,300\right]$ and the range of $G_{z}$ to $\left[ 1,300\right]$. The according grids $G_{a}$ and $G_{h}$ are adjusted to cover the corresponding range of the state space.
+We present results separately for the finite and infinite horizon versions of our model. Throughout, we use triple exponential grids for $a$, $h$, $s$, $z$, respectively. We set the range of grid $G_{s}$ to $\left[ 0,500\right]$ and the range of $G_{z}$ to $\left[ 1,5300\right]$. The according grids $G_{a}$ and $G_{h}$ are adjusted to cover the corresponding range of the state space.
 
 \subsection{Finite Horizon}
 
@@ -482,12 +488,12 @@ We iterate over $T=100$ time periods. Computational speed of the respective algo
 using the respective envelope conditions and combine them with the FOCs to
 get:
 \begin{align*}
-e_{1}  &  =1-\frac{\left[  Rs(h_{t+1})\beta\left(  c_{t+1}\right)  ^{-\theta}\right]  ^{-\frac{1}{\theta}}}{c_{t}},\\
-e_{2}  &  =1-\frac{\left[  \frac{R}{\left(  1-\delta\right)  }\left(\frac{s_{h}(h_{t+1})V_{t+1}}{s(h_{t+1})\left(  c_{t+1}\right)  ^{-\theta}}+w+\frac{1}{\left(  i_{t+1}\right)  ^{-\alpha}}\right)  ^{-1}\right]^{-\frac{1}{\alpha}}}{i_{t}}.
+e_{1} & = 1 - \frac{\left[R s(h_{t+1}) \beta \left(c_{t+1}\right)^{-\theta}\right]^{-\frac{1}{\theta}}}{c_{t}}, \\
+e_{2} & = 1 - \frac{\left[\frac{R}{\left(1 - \delta\right)} \left(\frac{s_{h}(h_{t+1}) V_{t+1}}{s(h_{t+1})\left(c_{t+1}\right)^{-\theta}} + w + \frac{1}{\left(i_{t+1}\right)^{-\alpha}}\right)^{-1}\right]^{-\frac{1}{\alpha}}}{i_{t}}.
 \end{align*}
-This error is a dimension free quantity expressing the optimization error as a fraction of current consumption. An error of $e_{1}=10^{-3}$, for instance, means the household would make a \$1 mistake for each \$1000 spent, cf. \citeN{aruoba06}. These errors are expressed in units of base 10-logarithm which means that $-4$ is an error of $0.0001$. To compare these methods in terms of accuracy we simulate 80 life-cycles profiles. Initial assets are set to $a_{0}=10$ whereas initial human capital $h_{0}$ differs in the range $\{50,70\}$. For each age we compute $e_{1}$ and $e_{2}$.
+This error is a dimension free quantity expressing the optimization error as a fraction of current consumption. An error of $e_{1}=10^{-3}$, for instance, means the household would make a \$1 mistake for each \$1000 spent, cf.~\citeN{aruoba06}. These errors are expressed in units of base 10-logarithm which means that $-4$ is an error of $0.0001$. To compare these methods in terms of accuracy we simulate 100 life-cycles profiles. Initial assets $a_{0}$ are set in the range $\{10,100\}$ whereas initial human capital $h_{0}$ differs in the range $\{50,100\}$. For each age we compute $e_{1}$ and $e_{2}$.
 
-Averages and maximum errors are provided in table \ref{results_finite}. Both are of similar magnitudes across algorithms. To evaluate the relative performance of the different algorithms, we can therefore further concentrate on comparison speed only.
+Averages and maximum errors are provided in Table~\ref{results_finite}. Both are of similar magnitudes across algorithms. To evaluate the relative performance of the different algorithms, we can therefore further concentrate on comparison speed only.
 
 Table~\ref{results_finite} shows computing times for EXGM, ENDGM and HEGM for different numbers of grid-points. As can further be seen in Panel~(a) of~Figure~\ref{graph_finte} EXGM is outperformed by both ENDGM and HEGM. Furthermore, we experience numerical stability problems with EXGM, especially for large number of grid-points.\footnote{Similar problems are documented by~\citeN{Hintermaier10}.}
 Handling the applied numerical routines becomes cumbersome and finding a solution is not guaranteed. If possible, EXGM should therefore be avoided in higher dimensional problems.
@@ -496,28 +502,28 @@ Panel~(b) of Figure~\ref{graph_finte} shows that ENDGM has a relative advantage 
 
 \begin{table}[htb] \centering
 \caption{Finite Horizon Model: Speed}
-\begin{tabular}
-[c]{p{4cm}||p{2cm}|p{3cm}|p{3cm}}
-\multicolumn{4}{p{12cm}}{}\\
-Number of Gridpoints for $(a,h)$ & Time (seconds) & Maximum Euler error for $\left( c;i \right)$ & Average Euler error for $\left( c;i \right)$ \\ \hline
-ENDGM &  &  & \\
-$\left( 20,20 \right)$ & $0.0780$ & $(-2.58;\ -1.33)$ & $(-3.52;\ -3.08)$ \\
-$\left( 40,40 \right)$ & $0.3120$ & $(-2.97;\ -1.32)$ & $(-4.28;\ -3.22)$ \\
-$\left( 100,100 \right)$ & $2.1372$ & $(-3.47;\ -1.33)$ & $(-5.15;\ -3.32)$ \\
-$\left( 200,200 \right)$ & $10.6861$ & $(-4.28;\ -1.33)$ & $(-5.75;\ -3.35)$ \\
-&  &  & \\ \hline
-HEGM &  &  &  \\
-$\left( 20,20 \right)$ & $0.1404$ & $(-2.76;\ -1.33)$ & $(-3.42;\ -2.76)$ \\
-$\left( 40,40 \right)$ & $0.4992$ & $(-3.00;\ -1.33)$ & $(-4.40;\ -3.13)$ \\
-$\left( 100,100 \right)$ & $2.6832$ & $(-3.44;\ -1.33)$ & $(-5.25;\ -3.31)$ \\
-$\left( 200,200 \right)$ & $10.1245$ & $(-3.95;\ -1.33)$ & $(-5.86;\ -3.35)$ \\
-&  &  & \\ \hline
-EXGM &  &  & \\
-$\left( 20,20 \right)$ & $0.2340$ & $(-2.81;\ -1.33)$ & $(-3.46;\ -2.75)$ \\
-$\left( 40,40 \right)$ & $1.0452$ & $(-3.00;\ -1.32)$ & $(-4.40;\ -3.12)$ \\
-$\left( 100,100 \right)$ & $7.2384$ & $(-3.44;\ -1.33)$ & $(-5.24;\ -3.31)$ \\
-$\left( 200,200 \right)$ & $27.7214$ & $(-3.94;\ -1.33)$ & $(-5.86;\ -3.35)$ \\ \hline
-\multicolumn{4}{p{12cm}}{\footnotesize{Computing time for $T=100$ and resulting maximum and average Euler equation errors. Computing time is reported in seconds and absolute errors in units of base-10 logarithms.}}
+\begin{tabular}{L{3.5cm}||C{2cm}|C{2cm}|C{3cm}|C{3cm}}
+\multicolumn{5}{p{14cm}}{}\\
+& \multicolumn{2}{c|}{Speed} & \multicolumn{2}{c}{Euler error for $\left(c;i\right)$} \\ 
+Number of Grid- points for $(a,h)$ & Seconds & Relative to ENDGM & Maximum & Average \\ \hline
+ENDGM &  &  &  & \\
+$\left(  20,20  \right)$ &  $0.078$ &    -    & $(-2.45;\ -1.98)$ & $(-3.91;\ -2.87)$ \\
+$\left(  40,40  \right)$ &  $0.296$ &    -    & $(-2.83;\ -2.41)$ & $(-4.44;\ -3.44)$ \\
+$\left( 100,100 \right)$ &  $2.122$ &    -    & $(-3.34;\ -3.16)$ & $(-5.08;\ -4.06)$ \\
+$\left( 200,200 \right)$ & $10.546$ &    -    & $(-4.32;\ -3.61)$ & $(-5.60;\ -4.55 )$ \\
+&  &  &  & \\ \hline
+HEGM &  &  &  &  \\
+$\left(  20,20  \right)$ &  $0.125$ & $1.603$ & $(-2.62;\ -2.13)$ & $(-3.92;\ -2.73)$ \\
+$\left(  40,40  \right)$ &  $0.421$ & $1.422$ & $(-3.31;\ -2.60)$ & $(-4.52;\ -3.34)$ \\
+$\left( 100,100 \right)$ &  $2.465$ & $1.162$ & $(-3.12;\ -3.16)$ & $(-5.18;\ -4.00)$ \\
+$\left( 200,200 \right)$ & $10.218$ & $0.969$ & $(-4.59;\ -3.59)$ & $(-5.63;\ -4.47)$ \\
+&  &  &  & \\ \hline
+EXGM &  &  &  & \\
+$\left(  20,20  \right)$ &  $0.156$ & $2.000$ & $(-2.63;\ -2.18)$ & $(-3.89;\ -2.74)$ \\
+$\left(  40,40  \right)$ &  $0.624$ & $2.108$ & $(-3.34;\ -2.65)$ & $(-4.52;\ -3.35)$ \\
+$\left( 100,100 \right)$ &  $3.619$ & $1.705$ & $(-3.57;\ -3.18)$ & $(-5.16;\ -4.01)$ \\
+$\left( 200,200 \right)$ & $14.867$ & $1.410$ & $(-4.61;\ -3.63)$ & $(-5.62;\ -4.47)$ \\ \hline
+\multicolumn{5}{p{15cm}}{\footnotesize{Computing time for $T=100$ and resulting maximum and average Euler equation errors. Computing time is reported in seconds and absolute errors in units of base-10 logarithms.}}
 \end{tabular}
 \label{results_finite}
 \end{table}
@@ -528,7 +534,7 @@ $\left( 200,200 \right)$ & $27.7214$ & $(-3.94;\ -1.33)$ & $(-5.86;\ -3.35)$ \\ 
 [c]{cc}
 & \\
 Panel (a) & Panel (b)\\
-\raisebox{-0cm}{\includegraphics[trim=0.000000in 0.000000in -0.005714in 0.003845in, height=6.0319cm, width=7.0226cm]{Abbildungen/speed_all_finite.eps}} & \raisebox{-0cm}{\includegraphics[trim=0.000000in 0.000000in -0.030283in -0.003365in, height=6.0188cm, width=7.027cm]{Abbildungen/rel_endgm_HEgm.eps}} \\
+{\includegraphics[height=6.0cm, width=6.0cm]{Abbildungen/speed_all_finite.eps}} & {\includegraphics[height=6.0cm, width=6.0cm]{Abbildungen/rel_endgm_HEgm.eps}} \\
 \multicolumn{2}{p{15cm}}{{\footnotesize Panel (a): Computing time as a function of grid-points in seconds (with equally many grid-points in both dimensions). Solid line: computing time of EXGM; dotted line: computing time of HEGM; dashed-dotted line: computing time of ENDGM. Panel (b): Ratio of computing time of ENDGM to HEGM as a function of grid-points (with equally many grid-points in both dimensions).}}
 \end{tabular}
 \label{graph_finte}
@@ -546,7 +552,7 @@ To compute Euler equation errors we simulate the response to a shock to financia
 [c]{cc}
 & \\
 Panel (a) & Panel (b)\\
-{\includegraphics[trim=0.000000in 0.000000in -0.005714in 0.003845in, height=6.0319cm, width=7.0226cm]{Abbildungen/Smart_1.eps}} & {\includegraphics[trim=0.000000in 0.000000in 0.000000in 0.000000in, height=6.0319cm, width=7.0226cm]{Abbildungen/Smart_2.eps}} \\
+{\includegraphics[height=6.0cm, width=6.0cm]{Abbildungen/Smart_1.eps}} & {\includegraphics[height=6.0cm, width=6.0cm]{Abbildungen/Smart_2.eps}} \\
 \multicolumn{2}{p{15cm}}{{\footnotesize Panel (a)  (b) ).}}
 \end{tabular}
 \label{graph_infinte copy(1)}
@@ -563,7 +569,7 @@ in our case.\footnote{It is necessary to assure that the endogenously computed g
 [c]{cc}
 & \\
 Panel (a) & Panel (b)\\
-\raisebox{-0cm}{\includegraphics[trim=0.000000in 0.000000in -0.002898in 0.010805in, height=5.8364cm, width=6.9897cm]{Abbildungen/speed_all_finite_smart.eps}} & \raisebox{-0cm}{\includegraphics[trim=0.000000in 0.000000in 0.010899in 0.009365in, height=5.8386cm, width=6.9238cm]{Abbildungen/rel_endgm_HEgm_infinite_smart.eps}} \\
+{\includegraphics[height=6.0cm, width=6.0cm]{Abbildungen/speed_all_finite_smart.eps}} & {\includegraphics[height=6.0cm, width=6.0cm]{Abbildungen/rel_endgm_HEgm_infinite_smart.eps}} \\
 \multicolumn{2}{p{15cm}}{{\footnotesize Panel (a) Computing time to convergence of policy functions (criterion $\varepsilon=10^{-6}$) as a function of grid-points (with equally many grid-points in both dimensions). Solid line: computing time of EXGM; dotted line: computing time of HEGM; dashed-dotted line: computing time of ENDGM. Panel (b) Ratio of computing time to convergence of ENDGM and HEGM as a function of grid-points (with equally many grid-points in both dimensions).}}
 \end{tabular}
 \label{graph_infinte}
@@ -572,26 +578,27 @@ Panel (a) & Panel (b)\\
 \begin{table}[htb] \centering
 \caption{Infinite Horizon Model: Performance Results}
 \begin{tabular}
-[c]{p{4cm}||p{1.9cm}|p{2cm}|p{3.0cm}|p{3.0cm}}
-\multicolumn{5}{p{14cm}}{} \\
-Number of Gridpoints for $(a,h)$ & Time (seconds) & Iterations till convergence & Maximum Euler error for $\left( c;i \right)$ & Average Euler error for $\left( c;i \right)$ \\ \hline
+[c]{p{3.5cm}||C{2cm}|C{2cm}|C{3cm}|C{3cm}}
+\multicolumn{5}{p{14cm}}{}\\
+& \multicolumn{2}{c|}{Speed} & \multicolumn{2}{c}{Euler error for $\left(c;i\right)$} \\ 
+Number of Gridpoints for $(a,h)$ & Seconds & Relative to ENDGM & Maximum & Average \\ \hline
 ENDGM &  &  &  & \\
-$\left( 20,20 \right)$ & $0.22$ & $307$ & $(-2.55;\ -1.62)$ & $(-3.16;\ -2.59)$ \\
-$\left( 40,40 \right)$ & $0.70$ & $308$ & $(-3.12;\ -2.28)$ & $(-3.75;\ -3.17)$ \\
-$\left( 100,100 \right)$ & $4.02$ & $308$ & $(-4.01;\ -2.82)$ & $(-4.89;\ -3.87)$ \\
-$\left( 200,200 \right)$ & $16.99$ & $308$ & $(-4.37;\ -3.50)$ & $(-5.27;\ -4.39)$ \\
+$\left(  20,20  \right)$ &  $0.22$ &   -    & $(-2.55;\ -1.62)$ & $(-3.16;\ -2.59)$ \\
+$\left(  40,40  \right)$ &  $0.70$ &   -    & $(-3.12;\ -2.28)$ & $(-3.75;\ -3.17)$ \\
+$\left( 100,100 \right)$ &  $4.02$ &   -    & $(-4.01;\ -2.82)$ & $(-4.89;\ -3.87)$ \\
+$\left( 200,200 \right)$ & $16.99$ &   -    & $(-4.37;\ -3.50)$ & $(-5.27;\ -4.39)$ \\
 &  &  &  & \\ \hline
 HEGM &  &  &  & \\
-$\left( 20,20 \right)$ & $0.41$ & $318$ & $(-2.77;\ -1.96)$ & $(-3.41;\ -2.73)$ \\
-$\left( 40,40 \right)$ & $1.39$ & $316$ & $(-3.20;\ -2.11)$ & $(-3.94;\ -3.17)$ \\
-$\left( 100,100 \right)$ & $7.97$ & $320$ & $(-4.12;\ -2.76)$ & $(-4.94;\ -3.78)$ \\
-$\left( 200,200 \right)$ & $31.17$ & $320$ & $(-4.64;\ -3.39)$ & $(-5.36;\ -4.27)$ \\
+$\left(  20,20  \right)$ &  $0.41$ &  & $(-2.77;\ -1.96)$ & $(-3.41;\ -2.73)$ \\
+$\left(  40,40  \right)$ &  $1.39$ &  & $(-3.20;\ -2.11)$ & $(-3.94;\ -3.17)$ \\
+$\left( 100,100 \right)$ &  $7.97$ &  & $(-4.12;\ -2.76)$ & $(-4.94;\ -3.78)$ \\
+$\left( 200,200 \right)$ & $31.17$ &  & $(-4.64;\ -3.39)$ & $(-5.36;\ -4.27)$ \\
 &  &  &  & \\ \hline
 EXGM &  &  &  & \\
-$\left( 20,20 \right)$ & $0.69$ & $346$ & $(-2,87;\ -1,96)$ & $(-3.53;\ -2.73)$ \\
-$\left( 40,40 \right)$ & $3.03$ & $379$ & $(-3,30;\ -2,11)$ & $(-4.02;\ -3.16)$ \\
-$\left( 100,100 \right)$ & $21.03$ & $407$ & $(-4,14;\ -2,76)$ & $(-4.93;\ -3.79)$ \\
-$\left( 200,200 \right)$ & $86.94$ & $418$ & $(-4,66;\ -3,39)$ & $(-5.37;\ -4.27)$ \\ \hline
+$\left(  20,20  \right)$ &  $0.69$ &  & $(-2.87;\ -1,96)$ & $(-3.53;\ -2.73)$ \\
+$\left(  40,40  \right)$ &  $3.03$ &  & $(-3.30;\ -2,11)$ & $(-4.02;\ -3.16)$ \\
+$\left( 100,100 \right)$ & $21.03$ &  & $(-4.14;\ -2,76)$ & $(-4.93;\ -3.79)$ \\
+$\left( 200,200 \right)$ & $86.94$ &  & $(-4.66;\ -3,39)$ & $(-5.37;\ -4.27)$ \\ \hline
 \multicolumn{5}{p{15cm}}{{\footnotesize Computing time to convergence of policy functions (criterion $\varepsilon=10^{-6}$) and resulting maximum and average Euler equation errors. Computing time is reported in seconds and absolute errors in units of base-10 logarithms.}}
 \end{tabular}
 \label{results_infinte}
