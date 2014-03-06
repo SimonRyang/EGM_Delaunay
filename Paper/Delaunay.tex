@@ -498,7 +498,7 @@ Averages and maximum errors are provided in Table~\ref{results_finite}. Both are
 Table~\ref{results_finite} shows computing times for EXGM, ENDGM and HEGM for different numbers of grid-points. As can further be seen in Panel~(a) of~Figure~\ref{graph_finte} EXGM is outperformed by both ENDGM and HEGM. Furthermore, we experience numerical stability problems with EXGM, especially for large number of grid-points.\footnote{Similar problems are documented by~\citeN{Hintermaier10}.}
 Handling the applied numerical routines becomes cumbersome and finding a solution is not guaranteed. If possible, EXGM should therefore be avoided in higher dimensional problems.
 
-Panel~(b) of Figure~\ref{graph_finte} shows that ENDGM has a relative advantage in comparison to HEGM in solving the model with a relatively small number of grid-points. At a grid size of~$10^{2}$, ENDGM is almost two times faster than HEGM. For solving the model with a higher number of grid-points, however, HEGM is advantageous. At a grid size of~$500^{2}$ HEGM is two times faster than ENDGM. In our setting the break-even point between both algorithms is at a number of~$150^{2}$ grid-points and a computing time of~$5.5s.$ As can be seen from table \ref{results_finite}, for a standard choice of~$20$ to~$40$ grid-points in each dimension, ENDGM is $\frac{0.4992}{0.3120}\approx1.6$ to~$\frac{0.1404}{0.078}\approx1.8$ times faster than HEGM and $\frac{0.234}{0.078}\approx3$ to~$\frac{1.0452}{0.3120}\approx3.4$ times faster than EXGM.
+Panel~(b) of Figure~\ref{graph_finte} shows that ENDGM has a relative advantage in comparison to HEGM in solving the model with a relatively small number of grid-points. At a grid size of~$20^{2}$, ENDGM is more than~$1.6$ times faster than HEGM. For solving the model with a higher number of grid-points, however, HEGM is advantageous. At a grid size of~$300^{2}$ HEGM is more than 1.3 times faster than ENDGM. In our setting the break-even point between both algorithms is at a number of~$180^{2}$ grid-points and a computing time of~$8.2s.$ As can be seen from Table~\ref{results_finite}, for a standard choice of~$20$ to~$40$ grid-points in each dimension, ENDGM is $\frac{0.421}{0.296}\approx1.4$ to~$\frac{0.125}{0.078}\approx1.6$ times faster than HEGM and $\frac{0.156}{0.078}\approx2$ to~$\frac{0.624}{0.296}\approx2.1$ times faster than EXGM.
 
 \begin{table}[htb] \centering
 \caption{Finite Horizon Model: Speed}
@@ -534,7 +534,7 @@ $\left( 200,200 \right)$ & $14.867$ & $1.410$ & $(-4.61;\ -3.63)$ & $(-5.62;\ -4
 [c]{cc}
 & \\
 Panel (a) & Panel (b)\\
-{\includegraphics[height=6.0cm, width=6.0cm]{Abbildungen/speed_all_finite.eps}} & {\includegraphics[height=6.0cm, width=6.0cm]{Abbildungen/rel_endgm_HEgm.eps}} \\
+{\includegraphics[height=6.0cm, width=6.0cm]{Abbildungen/Seconds_Finite.pdf}} & {\includegraphics[height=6.0cm, width=6.0cm]{Abbildungen/Ratio_Finite.pdf}} \\
 \multicolumn{2}{p{15cm}}{{\footnotesize Panel (a): Computing time as a function of grid-points in seconds (with equally many grid-points in both dimensions). Solid line: computing time of EXGM; dotted line: computing time of HEGM; dashed-dotted line: computing time of ENDGM. Panel (b): Ratio of computing time of ENDGM to HEGM as a function of grid-points (with equally many grid-points in both dimensions).}}
 \end{tabular}
 \label{graph_finte}
@@ -544,7 +544,7 @@ Panel (a) & Panel (b)\\
 
 Algorithms are also comparable in the infinite horizon setting. In all approaches, we make the same initial guesses for derivatives~$V_{0_{a}}$ and $V_{0_{h}}$ and iterate until convergence on policy functions subject to convergence criterion~$\varepsilon=10^{-6}$.\footnote{In our algorithms we define $\tilde{c}=\left\{  \left\{ \tilde{c}^{k,j}\right\}  _{k=1}^{K}\right\}  _{j=1}^{J}$ and $\tilde{\imath}=\left\{  \left\{  \tilde{\imath}^{k,j}\right\}  _{k=1}^{K}\right\}  _{j=1}^{J}$ and exit in iteration $n\,$\ if $\sup|\tilde{c}-c^{n}|\leq\varepsilon\cup|\tilde{\imath}-i^{n}|\leq\varepsilon.$}
 
-To compute Euler equation errors we simulate the response to a shock to financial assets and health capital for 50 periods. We set the assets $a_{0}=350$ and health in the range of $\{50,70\}$. We compute $e_{1}$ and $e_{1}$ for the first 50 periods. Averages and maximum errors are provided in table \ref{results_infinte}.
+To compute Euler equation errors we simulate the response to a shock to financial assets and health capital for 50 periods. We set the initial assets $a_{0}$ in the range if $\{250,450\}$ and health in the range of $\{50,70\}$. We compute $e_{1}$ and $e_{1}$ for the first 50 periods. Averages and maximum errors are provided in table \ref{results_infinte}.
 
 \begin{figure}[htb] \centering
 \caption{Infinite Horizon Model: Smart}
@@ -583,22 +583,22 @@ Panel (a) & Panel (b)\\
 & \multicolumn{2}{c|}{Speed} & \multicolumn{2}{c}{Euler error for $\left(c;i\right)$} \\ 
 Number of Gridpoints for $(a,h)$ & Seconds & Relative to ENDGM & Maximum & Average \\ \hline
 ENDGM &  &  &  & \\
-$\left(  20,20  \right)$ &  $0.22$ &   -    & $(-2.55;\ -1.62)$ & $(-3.16;\ -2.59)$ \\
-$\left(  40,40  \right)$ &  $0.70$ &   -    & $(-3.12;\ -2.28)$ & $(-3.75;\ -3.17)$ \\
-$\left( 100,100 \right)$ &  $4.02$ &   -    & $(-4.01;\ -2.82)$ & $(-4.89;\ -3.87)$ \\
-$\left( 200,200 \right)$ & $16.99$ &   -    & $(-4.37;\ -3.50)$ & $(-5.27;\ -4.39)$ \\
+$\left(  20,20  \right)$ &  $0.078$ &   -    & $(-2.27;\ -1.74)$ & $(-3.14;\ -2.72)$ \\
+$\left(  40,40  \right)$ &  $0.296$ &   -    & $(-2.88;\ -2.25)$ & $(-3.64;\ -3.19)$ \\
+$\left( 100,100 \right)$ &  $2.043$ &   -    & $(-3.59;\ -2.96)$ & $(-4.49;\ -3.95)$ \\
+$\left( 200,200 \right)$ & $10.577$ &   -    & $(-4.13;\ -3.53)$ & $(-5.15;\ -4.46)$ \\
 &  &  &  & \\ \hline
 HEGM &  &  &  & \\
-$\left(  20,20  \right)$ &  $0.41$ &  & $(-2.77;\ -1.96)$ & $(-3.41;\ -2.73)$ \\
-$\left(  40,40  \right)$ &  $1.39$ &  & $(-3.20;\ -2.11)$ & $(-3.94;\ -3.17)$ \\
-$\left( 100,100 \right)$ &  $7.97$ &  & $(-4.12;\ -2.76)$ & $(-4.94;\ -3.78)$ \\
-$\left( 200,200 \right)$ & $31.17$ &  & $(-4.64;\ -3.39)$ & $(-5.36;\ -4.27)$ \\
+$\left(  20,20  \right)$ &  $0.234$ & $3.0$ & $(-2.27;\ -1.71)$ & $(-3.27;\ -2.85)$ \\
+$\left(  40,40  \right)$ &  $0.889$ & $3.0$ & $(-3.01;\ -2.27)$ & $(-3.81;\ -3.35)$ \\
+$\left( 100,100 \right)$ &  $5.538$ & $2.7$ & $(-3.62;\ -2.88)$ & $(-4.67;\ -3.93)$ \\
+$\left( 200,200 \right)$ & $23.494$ & $2.2$ & $(-4.17;\ -3.56)$ & $(-5.36;\ -4.40)$ \\
 &  &  &  & \\ \hline
 EXGM &  &  &  & \\
-$\left(  20,20  \right)$ &  $0.69$ &  & $(-2.87;\ -1,96)$ & $(-3.53;\ -2.73)$ \\
-$\left(  40,40  \right)$ &  $3.03$ &  & $(-3.30;\ -2,11)$ & $(-4.02;\ -3.16)$ \\
-$\left( 100,100 \right)$ & $21.03$ &  & $(-4.14;\ -2,76)$ & $(-4.93;\ -3.79)$ \\
-$\left( 200,200 \right)$ & $86.94$ &  & $(-4.66;\ -3,39)$ & $(-5.37;\ -4.27)$ \\ \hline
+$\left(  20,20  \right)$ &  $0.343$ & $4.4$ & $(-2.33;\ -1,72)$ & $(-3.33;\ -2.86)$ \\
+$\left(  40,40  \right)$ &  $1.326$ & $4.5$ & $(-3.02;\ -2,28)$ & $(-3.87;\ -3.35)$ \\
+$\left( 100,100 \right)$ &  $8.206$ & $4.0$ & $(-3.71;\ -2,88)$ & $(-4.67;\ -3.93)$ \\
+$\left( 200,200 \right)$ & $33.291$ & $3.2$ & $(-4.20;\ -3,56)$ & $(-5.40;\ -4.40)$ \\ \hline
 \multicolumn{5}{p{15cm}}{{\footnotesize Computing time to convergence of policy functions (criterion $\varepsilon=10^{-6}$) and resulting maximum and average Euler equation errors. Computing time is reported in seconds and absolute errors in units of base-10 logarithms.}}
 \end{tabular}
 \label{results_infinte}
