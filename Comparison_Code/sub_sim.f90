@@ -31,8 +31,8 @@ ekey=0.0
 
 
 
-print*, '*************** Exogen Method ************* '
-call tic
+!print*, '*************** Exogen Method ************* '
+!call tic
 do sxc= 1, nsim
     do shc = 1,nsim  
         ! EXGM   
@@ -83,10 +83,10 @@ do sxc= 1, nsim
         end if
     end do
 end do
-call toc
+!call toc
 
-print*, '*************** Endogenous Method ************* '
-call tic
+!print*, '*************** Endogenous Method ************* '
+!call tic
 do sxc= 1, nsim
     do shc = 1,nsim         
         ! ENDGM  
@@ -102,7 +102,7 @@ do sxc= 1, nsim
             hen(1) = gridsimh(shc)
             
             ! For infinite horizon policy functions are the same for all periods
-            if (shc .eq. 1 .and. sxc.eq.1 .and. infinte) then
+            if (shc .eq. 1 .and. sxc.eq.1 .and. infinite) then
                 call triangulation
             end if 
             
@@ -148,10 +148,10 @@ do sxc= 1, nsim
         end if
     end do
 end do
-call toc
+!call toc
 
-print*, '*************** Hybrid Method ************* '       
-call tic
+!print*, '*************** Hybrid Method ************* '       
+!call tic
 do sxc= 1, nsim
     do shc = 1,nsim         
         ! HEGM
@@ -204,7 +204,7 @@ do sxc= 1, nsim
         end if
     end do
 end do
-call toc
+!call toc
 ! Maximum Euler Error
 
 mcx = maxval(abs(ecex(:age-1,:,:)))

@@ -141,9 +141,9 @@ subroutine outTime(times, file)
         trim(output), int(times(2)), ' h  '
     if(times(3) > 0d0) write(output, '(a,1x,i3,a)') &
         trim(output), int(times(3)), ' min  '
-    write(output, '(a,1x,f7.3,a)') &
+    write(output, '(a,1x,f7.4,a)') &
         trim(output), times(4), ' s  '
-    
+
     if(file > 0) then
         write(file, '(/a/)')trim(output)
     else 
