@@ -22,6 +22,6 @@ call sub_sim                ! Running Simulations to Compute Euler Errors
 
 call sub_out                ! Save Output in txt.file
  
-pause   
+!pause   
     
 end program comparison_main

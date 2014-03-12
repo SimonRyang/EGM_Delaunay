@@ -15,7 +15,8 @@ real(prec):: vx,vh
 real(prec),dimension(age)::xex,hex,cex,kex,vex,xen,hen,cen,ken,ven,xhy,hhy,chy,khy,vhy
 
 real(prec),dimension(age-1,nsim,nsim)::ecex,ekex,ecen,eken,echy,ekhy
-
+real(prec) :: countex, counten, counthy
+logical, dimension(age):: indbc
 
 integer sxc,shc,gc
 
@@ -26,17 +27,18 @@ ecex=0.0
 ekex=0.0
 ecen=0.0
 eken=0.0
-ecey=0.0
-ekey=0.0
+echy=0.0
+ekhy=0.0
 
 
 
 !print*, '*************** Exogen Method ************* '
-!call tic
-do sxc= 1, nsim
-    do shc = 1,nsim  
-        ! EXGM   
-        if (algorithm .eq. 1 .or. algorithm .eq. 4) then   
+!call tic 
+if (algorithm .eq. 1 .or. algorithm .eq. 4) then
+    countex=0
+    do sxc= 1, nsim
+        do shc = 1,nsim           
+            indbc=false
             xex = 0.0
             hex = 0.0
             cex = 0.0
@@ -63,6 +65,9 @@ do sxc= 1, nsim
                 call sub_exopolation(xex(age-it),hex(age-it),cex(age-it),kex(age-it),vx,vh,vex(age-it))
             
                 xex(age-it+1) = (1+ret)*(xex(age-it)+netw*hex((age-it))-cex((age-it))-kex((age-it)))
+                if (xex(age-it+1).lt. epsi)  then
+                    indbc(age-it)=.true.
+                end if
                 hex(age-it+1) = (1-delta)*(hex(age-it)+func_F(kex((age-it))))        
             end do
             
@@ -77,20 +82,28 @@ do sxc= 1, nsim
             
             ! Euler Error Evaluation
             do it = 1,age-1
-                ecex(it,sxc,shc) = func_eulererr_c(cex(it),cex(it+1),hex(it+1))
-                ekex(it,sxc,shc) = func_eulererr_k(cex(it),kex(it),hex(it+1),cex(it+1),kex(it+1),vex(it+1)) 
+                if (.not.indbc(it)) then
+                    ecex(it,sxc,shc) = func_eulererr_c(cex(it),cex(it+1),hex(it+1))
+                    ekex(it,sxc,shc) = func_eulererr_k(cex(it),kex(it),hex(it+1),cex(it+1),kex(it+1),vex(it+1))
+                    countex=countex+1
+                end if 
             end do
-        end if
+        end do
     end do
-end do
+end if
 !call toc
 
 !print*, '*************** Endogenous Method ************* '
 !call tic
-do sxc= 1, nsim
-    do shc = 1,nsim         
-        ! ENDGM  
-        if (algorithm .eq. 2 .or. algorithm .eq. 4) then
+if (algorithm .eq. 2 .or. algorithm .eq. 4) then
+    ! For infinite horizon policy functions are the same for all periods
+    if (infinite) then
+        call triangulation
+    end if 
+    do sxc= 1, nsim
+        do shc = 1,nsim         
+            ! ENDGM  
+            indbc=false
             xen = 0.0
             hen = 0.0
             cen = 0.0
@@ -101,10 +114,7 @@ do sxc= 1, nsim
             xen(1) = gridsimx(sxc)
             hen(1) = gridsimh(shc)
             
-            ! For infinite horizon policy functions are the same for all periods
-            if (shc .eq. 1 .and. sxc.eq.1 .and. infinite) then
-                call triangulation
-            end if 
+
             
             ! Computing consumption, investment, financial assets and human capital
             do it = age-1,1,-1                 
@@ -128,6 +138,10 @@ do sxc= 1, nsim
                 call delaunay_int (xen(age-it),hen(age-it),cen(age-it),ken(age-it),vx,vh,ven(age-it))
 
                 xen(age-it+1) = (1+ret)*(xen(age-it)+netw*hen((age-it))-cen((age-it))-ken((age-it)))
+                
+                if (xen(age-it+1).lt. epsi)  then
+                    indbc(age-it:)=.true.
+                end if
                 hen(age-it+1) = (1-delta)*(hen(age-it)+func_F(ken((age-it))))
             end do
             
@@ -142,20 +156,24 @@ do sxc= 1, nsim
             
             ! Euler Error Evaluation
             do it = 1,age-1
-                ecen(it,sxc,shc) = func_eulererr_c(cen(it),cen(it+1),hen(it+1))
-                eken(it,sxc,shc) = func_eulererr_k(cen(it),ken(it),hen(it+1),cen(it+1),ken(it+1),ven(it+1)) 
+                if (.not.indbc(it)) then
+                    ecen(it,sxc,shc) = func_eulererr_c(cen(it),cen(it+1),hen(it+1))
+                    eken(it,sxc,shc) = func_eulererr_k(cen(it),ken(it),hen(it+1),cen(it+1),ken(it+1),ven(it+1)) 
+                    counten=counten+1
+                end if
             end do
-        end if
+        end do
     end do
-end do
+end if
 !call toc
 
 !print*, '*************** Hybrid Method ************* '       
 !call tic
-do sxc= 1, nsim
-    do shc = 1,nsim         
-        ! HEGM
-        if (algorithm .eq. 3 .or. algorithm .eq. 4) then  
+if (algorithm .eq. 3 .or. algorithm .eq. 4) then  
+    do sxc= 1, nsim
+        do shc = 1,nsim       
+            indbc=false
+            ! HEGM
             xhy = 0.0
             hhy = 0.0
             chy = 0.0
@@ -184,6 +202,9 @@ do sxc= 1, nsim
                 call sub_hypolation(xhy(age-it),hhy(age-it),chy(age-it),khy(age-it),vx,vh,vhy(age-it))
 
                 xhy(age-it+1) = (1+ret)*(xhy(age-it)+netw*hhy((age-it))-chy((age-it))-khy((age-it)))
+                if (xhy(age-it+1).lt. epsi)  then
+                    indbc(age-it)=.true.
+                end if                
                 hhy(age-it+1) = (1-delta)*(hhy(age-it)+func_F(khy((age-it))))
             end do
 
@@ -198,13 +219,16 @@ do sxc= 1, nsim
             
             ! Euler Error Evaluation        
             do it = 1,age-1
-                echy(it,sxc,shc) = func_eulererr_c(chy(it),chy(it+1),hhy(it+1))
-                ekhy(it,sxc,shc) = func_eulererr_k(chy(it),khy(it),hhy(it+1),chy(it+1),khy(it+1),vhy(it+1)) 
+                if (.not.indbc(it)) then                   
+                    echy(it,sxc,shc) = func_eulererr_c(chy(it),chy(it+1),hhy(it+1))
+                    ekhy(it,sxc,shc) = func_eulererr_k(chy(it),khy(it),hhy(it+1),chy(it+1),khy(it+1),vhy(it+1)) 
+                    counthy=counthy+1
+                end if
             end do
-        end if
+        end do
     end do
-end do
-!call toc
+end if
+    !call toc
 ! Maximum Euler Error
 
 mcx = maxval(abs(ecex(:age-1,:,:)))
@@ -215,12 +239,12 @@ mcy = maxval(abs(echy(:age-1,:,:)))
 mky = maxval(abs(ekhy(:age-1,:,:)))
 
 ! Average Euler Error
-acx = sum(abs(ecex(:age-1,:,:)))/((age-1)*nsim*nsim)
-akx = sum(abs(ekex(:age-1,:,:)))/((age-1)*nsim*nsim)
-acn = sum(abs(ecen(:age-1,:,:)))/((age-1)*nsim*nsim)
-akn = sum(abs(eken(:age-1,:,:)))/((age-1)*nsim*nsim)
-acy = sum(abs(echy(:age-1,:,:)))/((age-1)*nsim*nsim)
-aky = sum(abs(ekhy(:age-1,:,:)))/((age-1)*nsim*nsim)
+acx = sum(abs(ecex(:age-1,:,:)))/countex !((age-1)*nsim*nsim)
+akx = sum(abs(ekex(:age-1,:,:)))/countex !((age-1)*nsim*nsim)
+acn = sum(abs(ecen(:age-1,:,:)))/counten !((age-1)*nsim*nsim)
+akn = sum(abs(eken(:age-1,:,:)))/counten !((age-1)*nsim*nsim)
+acy = sum(abs(echy(:age-1,:,:)))/counthy !((age-1)*nsim*nsim)
+aky = sum(abs(ekhy(:age-1,:,:)))/counthy !((age-1)*nsim*nsim)
 
 ! Writing Euler error in txt file
 open (unit = 101, file = 'simerr.txt', status = 'old')!,position='append'
@@ -257,6 +281,13 @@ do gc = 1,age
     write (106, '(3f30.15)') vex(gc), ven(gc), vhy(gc)
 end do
 close (106)
+
+open (unit = 107, file = 'grid.txt', status = 'old')!,position='append'
+do gc = 1,npt
+    write (107, '(2f30.15)') grid(1,gc), grid(2,gc)
+end do
+close (107)
+
 
 !!  Writing human capital evolution for different initial values
 !open (unit = 107, file = 'simtest.txt', status = 'old')!,position='append'
