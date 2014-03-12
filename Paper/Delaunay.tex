@@ -3,7 +3,6 @@
 \usepackage{amsfonts}
 \usepackage{amssymb}
 \usepackage{amsmath}
-\usepackage{eurosym}
 \usepackage{latexsym}
 \usepackage{graphicx}
 \usepackage{longtable}
@@ -20,6 +19,7 @@
 \usepackage{booktabs}
 \usepackage{tabularx}
 \usepackage{subcaption}
+\usepackage{eurosym}
 \usepackage{chicago}
 \usepackage{theorem}
 \usepackage{epstopdf}
@@ -27,6 +27,7 @@
 \usepackage[left=1in,right=1in,top=1in,bottom=1in]{geometry}
 
 \setcounter{MaxMatrixCols}{30}
+
 \newtheorem{theorem}{Theorem}
 \newtheorem{acknowledgement}[theorem]{Acknowledgement}
 \newtheorem{algorithm}[theorem]{Algorithm}
@@ -61,13 +62,13 @@
 \title{Endogenous Grids in Higher Dimensions: Delaunay Interpolation and Hybrid Methods\thanks{We thank Johannes Brumm, Christopher Carroll, Michael Reiter and seminar participants at University of Cologne, the 2012 CEF and the Cologne Macroeconomic Workshop 2012 for helpful comments.}}
 \author{Alexander Ludwig\thanks{CMR \& FiFo, University of Cologne; MEA; Netspar; Albertus-Magnus-Platz; 50923 K\"oln; Germany; E-mail: ludwig@wiso.uni-koeln.de}
 \and Matthias Sch\"{o}n\thanks{CMR, University of Cologne; Albertus-Magnus-Platz; 50923 K\"{o}ln; Germany; E-mail: m.schoen@wiso.uni-koeln.de}}
-\date{\today }
+\date{\today}
 \maketitle
 
 \begin{abstract}
-This paper investigates extensions of the method of endogenous grid-points (ENDGM) introduced by Carroll (2006) to higher dimensions with more than one continuous endogenous state variable. We compare three different categories ofalgorithms: (i) the conventional method with exogenous grids (EXGM), (ii) the pure method of endogenous grid-points (ENDGM) and (iii) a hybrid method (HEGM). ENDGM comes along with Delaunay interpolation on irregular grids. Comparison of methods is done by evaluating speed and accuracy. We find that HEGM and ENDGM both dominate EXGM. The choice between HEGM and ENDGM depends on the number of dimensions and the number of grid-points in each dimension. With less than~150 grid-points in each dimension ENDGM is faster than HEGM, and vice versa. For a standard choice of~$20$ to~$40$ grid-points in each dimension, ENDGM is~$1.6$ to~$1.8$ times faster than HEGM. 
+This paper investigates extensions of the method of endogenous grid-points (ENDGM) introduced by Carroll (2006) to higher dimensions with more than one continuous endogenous state variable. We compare three different categories of algorithms: (i) the conventional method with exogenous grids (EXGM), (ii) the pure method of endogenous grid-points (ENDGM) and (iii) a hybrid method (HEGM). ENDGM comes along with Delaunay interpolation on irregular grids. Comparison of methods is done by evaluating speed and accuracy. We find that HEGM and ENDGM both dominate EXGM. The choice between HEGM and ENDGM depends on the number of dimensions and the number of grid-points in each dimension. With less than~150 grid-points in each dimension ENDGM is faster than HEGM, and vice versa. For a standard choice of~$20$ to~$40$ grid-points in each dimension, ENDGM is~$1.6$ to~$1.8$ times faster than HEGM. 
 \newline\textit{JEL Classification: C63, E21.
-\newline Keywords: Dynamic Models, Numerical Solution, Endogenous Gridpoints Method, Delaunay Interpolation}
+\newline Keywords: Dynamic Models, Numerical Solution, Endogenous Grid-points Method, Delaunay Interpolation}
 
 \end{abstract}
 
@@ -240,7 +241,7 @@ An additional shortcoming of EXGM compared to ENDGM and HEGM is that it cannot e
 
 Step~\ref{EXGM interp} requires evaluation of both the value function $V_{t+1}$ and its derivatives, $V_{t+1_{a}}$ and $V_{t+1_{h}}$. We apply piecewise linear interpolation. We determine interpolation nodes by the concept \textquotedblleft grid square\textquotedblright, cf.~\shortciteN{numerical90}. In order to apply this procedure it is necessary to have a rectilinear grid, i.e., the state space has to be tessellated by rectangles.\footnote{Notice that these rectangles do not necessarily have to be congruent to each other.}
 In this case all grid-points in row $\mathcal{G}^{\bullet,j}$ have the same value of $h^{j}$, and all grid-points in column $\mathcal{G}^{k,\bullet}$ have the same value of $a^{k}$. The problem of locating a point in a multi-dimensional grid is split up into several problems of locating the point in one dimension. Within each dimension closest neighbors in the grid are identified in about~$\text{log}_{2}N$ tries using bisection methods. Figure~\ref{Rectilinear_Grid} shows the location of interpolation nodes $[A;B;C;D]$ for point $X$ in a two-dimensional rectilinear grid.
-\begin{figure}[htb]
+\begin{figure}[htbp]
 	\caption{Rectilinear Grid}
 	\label{Rectilinear_Grid}
 	\centering
@@ -250,7 +251,7 @@ In this case all grid-points in row $\mathcal{G}^{\bullet,j}$ have the same valu
 	\caption*{\footnotesize{\emph{Notes:} Interpolation on rectilinear grids. In any row locate the two columns ($G^{k,\bullet}$ and $G^{k+1,\bullet}$) that form the most narrow bracket of $a_{t+1}$. In any column locate the two rows ($G^{\bullet,j}$ and $G^{\bullet,j+1}$) that form the most narrow bracket of $h_{t+1}$. Interpolation nodes: $(k,j);(k+1,j);(k,j+1);(k+1,j+1)$.}}
 \end{figure}
 
-In EXGM, $\mathcal{G}^{a}\otimes\mathcal{G}^{h}$ is predetermined as a rectilinear grid (in every iteration). After locating the nodes bilinear interpolation of any function of~$F$---in our case the value function in~$t$ as well as its first derivatives with respect to~$a$ and~$h$--- at point X requires computing $F\left(  X\right)  =\varphi_{A}F(A)+\varphi_{B}F(B)+\varphi_{C}F(C)+\varphi_{D}F(D)$ with the four basis functions $\varphi$ where
+In EXGM, $\mathcal{G}^{a}\otimes\mathcal{G}^{h}$ is predetermined as a rectilinear grid (in every iteration). After locating the nodes bi-linear interpolation of any function of~$F$---in our case the value function in~$t$ as well as its first derivatives with respect to~$a$ and~$h$--- at point X requires computing $F\left(  X\right)  =\varphi_{A}F(A)+\varphi_{B}F(B)+\varphi_{C}F(C)+\varphi_{D}F(D)$ with the four basis functions $\varphi$ where
 \begin{align*}
 	\varphi_{A}  &  = p \ast q  \\
 	\varphi_{B}  &  = \left(1 - p\right) \ast q  \\
@@ -325,8 +326,8 @@ In contrast to EXGM, ENDGM is not a general method. Suppose we were to adopt a g
 
 \paragraph{Delaunay Interpolation}
 
-In EXGM the grid is rectilinear by construction whereas in ENDGM the endogenously computed grid~$\mathcal{G}^{a,h}$ is not. This constitutes the main drawback of ENDGM because location of interpolation nodes is not obvious. As illustrated in Figure~\ref{Irregular_Grid}, separating the multi-dimensional problem into several one-dimensional problems is not possible. In each row not just the value of~$a$ changes but also the value of~$h$ so that the concept of bilinear interpolation in a square grid is not applicable. ENDGM hence generates a situation where neighboring points in the state space do not need to be neighboring elements in the grid matrix. 
-\begin{figure}[htb] 
+In EXGM the grid is rectilinear by construction whereas in ENDGM the endogenously computed grid~$\mathcal{G}^{a,h}$ is not. This constitutes the main drawback of ENDGM because location of interpolation nodes is not obvious. As illustrated in Figure~\ref{Irregular_Grid}, separating the multi-dimensional problem into several one-dimensional problems is not possible. In each row not just the value of~$a$ changes but also the value of~$h$ so that the concept of bi-linear interpolation in a square grid is not applicable. ENDGM hence generates a situation where neighboring points in the state space do not need to be neighboring elements in the grid matrix. 
+\begin{figure}[htbp] 
 	\caption{Irregular Grid}
 	\label{Irregular_Grid}
 	\centering
@@ -338,9 +339,9 @@ In EXGM the grid is rectilinear by construction whereas in ENDGM the endogenousl
 \end{figure}
 
 The most common approach adopted in other scientific fields such as geometry or geography to locate neighboring points in an irregular grid is the concept of Delaunay triangulation and its related geometric construct, the Voronoi diagram.\footnote{Recently, these methods have been introduced to Economics, cf., e.g., \citeN{brumm10}.}
-We explain the geometric construction of the Voronoi diagram by use of figure~\ref{Delaunay Triangulation}. The Voronoi diagram (polygon)---shown in Panel~(a) of Figure~\ref{Delaunay Triangulation}---is the region of the state space consisting of all points closer to gridpoint $P_{1}$ than to any other gridpoint. The Voronoi diagram is obtained from the perpendicular bisectors of the lines connecting neighboring points. Voronoi diagrams for all points form a tessellation of the space, cf. Panel~(a). Edges of the Voronoi diagram are all the points in the plane that are equidistant to the two nearest grid-points, cf.~Panel~(b). The Voronoi vertices are the points equidistant to three grid-points, i.e., they are the center of circumcircles including the three neighboring grid-points, cf.~Panel~(c). Connecting these grid-points constitutes the unique triangulation known as the Delaunay triangulation as displayed in Panel~(d), cf.~\citeN{Baker99}. The vertices of a triangle are the nearest neighbors of all points contained in that triangle. These concepts can also be generalized to more than two dimensions.
+We explain the geometric construction of the Voronoi diagram by use of figure~\ref{Delaunay Triangulation}. The Voronoi diagram (polygon)---shown in Panel~(a) of Figure~\ref{Delaunay Triangulation}---is the region of the state space consisting of all points closer to grid-point $P_{1}$ than to any other grid-point. The Voronoi diagram is obtained from the perpendicular bisectors of the lines connecting neighboring points. Voronoi diagrams for all points form a tessellation of the space, cf. Panel~(a). Edges of the Voronoi diagram are all the points in the plane that are equidistant to the two nearest grid-points, cf.~Panel~(b). The Voronoi vertices are the points equidistant to three grid-points, i.e., they are the center of circumcircles including the three neighboring grid-points, cf.~Panel~(c). Connecting these grid-points constitutes the unique triangulation known as the Delaunay triangulation as displayed in Panel~(d), cf.~\citeN{Baker99}. The vertices of a triangle are the nearest neighbors of all points contained in that triangle. These concepts can also be generalized to more than two dimensions.
 
-\begin{figure}[htb] 
+\begin{figure}[htbp] 
 	\caption{The Voronoi Diagram}
 	\label{Delaunay Triangulation}
 	\centering
@@ -356,7 +357,7 @@ We explain the geometric construction of the Voronoi diagram by use of figure~\r
 The computational implementation of a Delaunay triangulation is done by the so-called randomized incremental algorithm, which we illustrate in Figure~\ref{Delaunay Triangulation Computational}. It is incremental in the sense that it adds points to the triangulation one at a time to maintain a Delaunay triangulation at each stage. It is randomized in that points are added in a random order which guarantees $O(N~log~N)$ expected time for the algorithm, cf.~\shortciteN{numerical3rd}. To construct the Delaunay triangulation for a given point set we initially have to add three ``fictitious'' points $\left[\Theta_{1},\Theta_{2},\Theta_{3}\right]$ forming a large starting triangle which encloses all ``real'' points, cf. Panel~(a) of Figure~\ref{Delaunay Triangulation Computational}. This is necessary in order to ensure that added points lie within an existing triangle. These ``fictitious'' points are deleted once the triangulation is complete. In each following step of Delaunay triangulation a point from the point set is added to the existing triangulation and connected to the vertices of the enclosing triangle. We illustrate this step in Panel~(b) of the figure. Consider the existing triangle~$P_{1},P_{2},P_{3}$ and a new point from the point set,~$P_{5}$, which is not yet connected to other points. Connecting~$P_{5}$ to~$P_{1}$, $P_{2}$ and $P_{3}$, respectively, gives rise to three new triangles. Next, it is checked whether the newly created triangles are ``legal'', i.e., whether the circumcircle of any triangle does not contain any other point of the point set.\footnote{This principle is derived from the definition that a triangulation fulfills the Delaunay property if and only if the circumcircle of any triangle does not contain a point in its interior, cf.\shortciteN{berg08}.}
 In our example, we first visit triangle~$P_{2},P_{3},P_{5}$ in Panel~(c). As shown in the figure, the circumcircle contains point~$P_{4}$. Hence, triangle~$P_{2},P_{3},P_{5}$ is not legal. Therefore, flip the edge opposite of $P_{5}$ connecting~$P_{5}$ with~$P_{4}$. This operation creates two new triangles, $P_{3},P_{4},P_{5}$ and~$P_{2},P_{4},P_{5}$, cf.~Panel~(d) of the figure, which must be checked for legality. In our example, triangle~$P_{3},P_{4},P_{5}$ is legal because the circumcircle does not contain other existing points from the point set. The process is recursive and never wanders away from any point~$P$ (point~$P_{5}$ in our example). The only edges that can be made illegal by inserting a point $P$ are edges opposite $P$ (in triangles with~$P$ as a vertex).\footnote{This procedure is described in \shortciteN{numerical3rd}. We use the numerical package geompack3 based on~\citeN{Joe91} for both the Delaunay triangulation and the ``visibility walk'', described next.}
 
-\begin{figure}[htb]
+\begin{figure}[htbp]
 	\caption{Incremental Algorithm}
 	\label{Delaunay Triangulation Computational}
 	\centering
@@ -372,7 +373,7 @@ In our example, we first visit triangle~$P_{2},P_{3},P_{5}$ in Panel~(c). As sho
 At interpolation, to locate a (query) point~$X$ in a given planar triangular mesh we adopt a procedure referred to as visibility walk which is illustrated in Figure~\ref{fig:visibility_walk}. The search starts from an initial guess of a triangle,~$\Delta_{1}$. Then, it is tested if the line supporting the first edge~$e$ separates~$\Delta_{1}$ from the query point~$X$ which reduces to a single operation test. If this is the case, the next triangle being visited is the neighbor of~$\Delta_{1}$ through~$e$, $\Delta_{2}$. Otherwise the second edge is tested in the same way. In case the test for the second edge also fails then the third edge is tested. The failure of this third test means that the goal has been reached. In Figure~\ref{fig:visibility_walk}, this would be the case at triangle $\Delta_{X}$ which contains $X$.\footnote{In non-Delaunay triangulations, the visibility walk may fall into a cycle, whereas in Delaunay triangulations the visibility walk always terminates, cf.~\shortciteN{Devillers01}.}
 \shortciteN{Devillers01} find that performance of the visibility walk is better than other possible algorithms. The location step for the visibility walk takes only $O\log\left(N\right)$ operations, cf.~\shortciteN{numerical3rd}. The starting triangle may be arbitrary. However, an informed choice may radically shorten the length of the walk. We accommodate this by initializing the search with our solutions to grid-points visited previously.
 
-\begin{figure}[htb]
+\begin{figure}[htbp]
 	\caption{Visibility Walk}
 	\label{fig:visibility_walk}
 	\centering
@@ -464,7 +465,7 @@ Hybrid interpolation, illustrated in Figure~\ref{Hybrid interpolation}, is defin
 \end{align*}
 with $p=\frac{a_{X} - a_{A}} {a_{B} - a_{A}}$, $r = \frac{a_{X} - a_{C}} {a_{D} - a_{C}}$ and $q = \frac{h_{X} - h_{C}} {h_{C} - h_{A}}$. Thus, HEGM reduces complexity of the problem without involving advanced interpolation procedures.
 
-\begin{figure}[htb]
+\begin{figure}[htbp]
 	\caption{Hybrid Interpolation}
 	\label{Hybrid interpolation}
 	\centering
@@ -491,27 +492,27 @@ Averages and maximum errors are provided in Table~\ref{results_finite}. Both are
 
 Table~\ref{results_finite} shows computing times for EXGM, ENDGM and HEGM for different numbers of grid-points. As can further be seen in Panel~(a) of~Figure~\ref{graph_finte} EXGM is outperformed by both ENDGM and HEGM. Furthermore, we experience numerical stability problems with EXGM, especially for large number of grid-points.\footnote{Similar problems are documented by~\citeN{Hintermaier10}.}
 Handling the applied numerical routines becomes cumbersome and finding a solution is not guaranteed. If possible, EXGM should therefore be avoided in higher dimensional problems.
-\begin{table}[htb]
+\begin{table}[htbp]
 	\caption{Finite Horizon Model: Performance Results}	
 	\label{results_finite}
 	\centering
 \begin{threeparttable}
 	\begin{tabular}{L{0.1cm}C{2.5cm}C{2cm}C{2cm}C{3cm}C{3cm}}
 	  \toprule
-		& & \multicolumn{2}{c}{Speed} & \multicolumn{2}{c}{Euler error } \\ 
-		\multicolumn{2}{L{3cm}}{Number of Grid- points for $(a,h)$} & Seconds & Relative to ENDGM & Maximum for  $c\ ;\ i$ & Average for \newline $c\ ;\ i$\\ \hline
-		\multicolumn{6}{l}{ENDGM}\\
+		& & \multicolumn{2}{c}{Speed} & \multicolumn{2}{c}{Euler Equation Error } \\ 
+		\multicolumn{2}{L{3cm}}{Number of Grid- points for $(a,h)$} & Seconds & Relative to ENDGM & Maximum for  $c\ ;\ i$ & Average for \newline $c\ ;\ i$  \\ \hline
+		\multicolumn{6}{l}{ENDGM}  \\
 		& $\left(  20,20  \right)$ &  $0.078$ &    -    & $-2.45;\ -1.98$ & $-3.91;\ -2.87$ \\
 		& $\left(  40,40  \right)$ &  $0.296$ &    -    & $-2.83;\ -2.41$ & $-4.44;\ -3.44$ \\
 		& $\left( 100,100 \right)$ &  $2.122$ &    -    & $-3.34;\ -3.16$ & $-5.08;\ -4.06$ \\
 		& $\left( 200,200 \right)$ & $10.546$ &    -    & $-4.32;\ -3.61$ & $-5.60;\ -4.55$ \\
-		\multicolumn{6}{l}{}\\ 
-		\multicolumn{6}{l}{HEGM}\\
+		\multicolumn{6}{l}{}  \\ 
+		\multicolumn{6}{l}{HEGM  }\\
 		& $\left(  20,20  \right)$ &  $0.125$ & $1.603$ & $-2.62;\ -2.13$ & $-3.92;\ -2.73$ \\
 		& $\left(  40,40  \right)$ &  $0.421$ & $1.422$ & $-3.31;\ -2.60$ & $-4.52;\ -3.34$ \\
 		& $\left( 100,100 \right)$ &  $2.465$ & $1.162$ & $-3.12;\ -3.16$ & $-5.18;\ -4.00$ \\
 		& $\left( 200,200 \right)$ & $10.218$ & $0.969$ & $-4.59;\ -3.59$ & $-5.63;\ -4.47$ \\
-		\multicolumn{6}{l}{}\\ 
+		\multicolumn{6}{l}{}  \\ 
 		\multicolumn{6}{l}{EXGM}\\
 		& $\left(  20,20  \right)$ &  $0.156$ & $2.000$ & $-2.63;\ -2.18$ & $-3.89;\ -2.74$ \\
 		& $\left(  40,40  \right)$ &  $0.624$ & $2.108$ & $-3.34;\ -2.65$ & $-4.52;\ -3.35$ \\
@@ -527,7 +528,7 @@ Handling the applied numerical routines becomes cumbersome and finding a solutio
 \end{table}
 
 Panel~(b) of Figure~\ref{graph_finte} shows that ENDGM has a relative advantage in comparison to HEGM in solving the model with a relatively small number of grid-points. At a grid size of~$20^{2}$, ENDGM is more than~$1.6$ times faster than HEGM. For solving the model with a higher number of grid-points, however, HEGM is advantageous. At a grid size of~$300^{2}$ HEGM is more than 1.3 times faster than ENDGM. In our setting the break-even point between both algorithms is at a number of~$180^{2}$ grid-points and a computing time of~$8.2s$. As can be seen from Table~\ref{results_finite}, for a standard choice of~$20$ to~$40$ grid-points in each dimension, ENDGM is $\frac{0.421} {0.296} \approx 1.4$ to~$\frac{0.125} {0.078} \approx 1.6$ times faster than HEGM and $\frac{0.156} {0.078} \approx 2.0$ to~$\frac{0.624} {0.296} \approx 2.1$ times faster than EXGM.
-\begin{figure}[htb]
+\begin{figure}[htbp]
 	\caption{Finite Horizon Model: Speed}
 	\label{graph_finte}
 	\centering
@@ -542,50 +543,50 @@ Panel~(b) of Figure~\ref{graph_finte} shows that ENDGM has a relative advantage 
 
 Algorithms are also comparable in the infinite horizon setting. In all approaches, we make the same initial guesses for derivatives~$V_{0_{a}}$ and $V_{0_{h}}$ and iterate until convergence on policy functions subject to convergence criterion~$\varepsilon = 10^{-6}$.\footnote{In our algorithms we define $\tilde{c} = \left\{\left\{\tilde{c}^{k,j}\right\}_{k=1}^{K}\right\}_{j=1}^{J}$ and $\tilde{\imath} = \left\{\left\{\tilde{\imath}^{k,j}\right\}_{k=1}^{K}\right\}_{j=1}^{J}$ and exit in iteration $n$ if $\sup |\tilde{c}-c^{n}| \leq \varepsilon \cup |\tilde{\imath}-i^{n}| \leq \varepsilon.$}
 
-To compute Euler equation errors we simulate the response to a shock to financial assets and health capital for $40$ periods. We set the initial assets $a_{0}$ in the range if $\{250,450\}$ and health in the range of $\{50,100\}$. We compute $e_{1}$ and $e_{1}$ for the first $40$ periods. Averages and maximum errors are provided in table \ref{results_infinite}.
-
-As in the finite horizon setting, Euler equation errors are of similar magnitudes across algorithms---which we also achieve by appropriate settings of the respective numerical routines---so that we can again further concentrate on comparison speed only.
-
 In the infinite horizon setting, speed of ENDGM can be increased if the Delaunay Triangulation is not constructed every iteration. Instead, we hold the triangulation pattern fixed after a certain number of iterations---$50$ in our case.\footnote{It is necessary to assure that the endogenously computed grid-points form a convex hull.}
 Figure \ref{graph_smart} shows the general principle. 
-\begin{figure}[htb] 
-	\caption{Infinite Horizon Model: Smart}
+\begin{figure}[htbp] 
+	\caption{Infinite Horizon Model: Approximate Delaunay}
 	\label{graph_smart}
 	\centering
 	\begin{tabular}{cC{1cm}c}
 	Panel (a) & & Panel (b)  \\
-	\includegraphics[height=6.0cm, width=6.0cm]{Abbildungen/Smart_1.eps} & & \includegraphics[height=6.0cm, width=6.0cm]{Abbildungen/Smart_2.eps} \\
+	\includegraphics[height=6.0cm, width=6.0cm]{Abbildungen/Smart_1.pdf} & & \includegraphics[height=6.0cm, width=6.0cm]{Abbildungen/Smart_2.pdf} \\
 	\end{tabular}
-	\caption*{\footnotesize{\emph{Notes:} Panel (a): In each step the gridpoints are updated and relocated. This relocation is different for each gridpoint. (b): Smart keeps the old triangulation also for the new mesh even though it is not longer Delaunay. (Edge between P1 and P2 is illegal.) This is an tradeoff between speed and higher accuracy in interpolation.}}
+	\caption*{\footnotesize{\emph{Notes:} Panel (a): In each iteration of ENDGM the grid-points are relocated. Distance and direction of this movement is different for each grid-point. Panel (b): The resulting grid might not be Delaunay - Edge between $P_{1}$ and $P_{2}$ becomes illegal and must be flipped to $P_{3}$ and $P_{4}$. \textit{Approximate Delaunay} keeps the old triangulation in order to save computing time and accept a less accurate interpolation.}}
 \end{figure}
 
-As in the finite horizon setting, ENDGM is the fastest method for not too many grid-points and the comparative advantage decreases for a higher number of grid-points. Both methods clearly dominate EXGM in terms of speed. Similar to our findings in the finite horizon case, for a standard choice of~$20$ to~$40$ grid-points in each dimension, ENDGM is $\frac{0.41} {0.22} \approx 1.9$ to~$\frac{1.39} {0.70} \approx 2.0$ times faster than HEGM and $\frac{0.69} {0.22} \approx 3.1$ to~$\frac{3.03} {0.70} \approx 4.3$ times faster than EXGM, cf. table \ref{results_infinite}. As in the finite horizon setting EXGM faces severe problems in terms of stability for a high number of grid-points.
-\begin{table}[htb]
-	\caption{Finite Horizon Model: Performance Results}	
+To compute Euler equation errors we simulate the response to a shock to financial assets and health capital for $40$ periods. We set the initial assets $a_{0}$ in the range if $\{100,400\}$ and health in the range of $\{40,80\}$. We compute $e_{1}$ and $e_{1}$ for the first $50$ periods.\footnote{In periods when the borrowing constraint is binding the Euler equation is not fulfilled. In these periods the Euler equation errors are not computed.}  Averages and maximum errors are provided in Table \ref{results_infinite}.
+
+As in the finite horizon setting, average Euler equation errors are of similar magnitudes across algorithms---which we also achieve by appropriate settings of the respective numerical routines---so that we can again further concentrate on comparison speed only.\footnote{The maximum Euler equation errors are considerably higher for EXGM. They occur in the simulations just before the depletion of all financial assets. This results from missing the exact determination of the borrowing constraint in the EXGM.}
+
+As in the finite horizon setting, ENDGM is the fastest method and the comparative advantage decreases for a higher number of grid-points. Both, ENDGM and HEGM, clearly dominate EXGM in terms of speed. Similar to our findings in the finite horizon case, for a standard choice of~$25$ to~$50$ grid-points in each dimension, ENDGM is $\frac{0.343} {0.110} \approx 3.1$ to~$\frac{1.326} {0.499} \approx 2.7$ times faster than HEGM and $\frac{0.562} {0.110} \approx 5.1$ to~$\frac{2.184} {0.499} \approx 4.4$ times faster than EXGM, cf. Table \ref{results_infinite}. As in the finite horizon setting EXGM faces severe problems in terms of stability for a high number of grid-points.
+\begin{table}[htbp]
+	\caption{Infinite Horizon Model: Performance Results}	
 	\label{results_infinite}
 	\centering
 \begin{threeparttable}
 	\begin{tabular}{L{0.1cm}C{2.5cm}C{2cm}C{2cm}C{3cm}C{3cm}}
-	  \toprule
-		& & \multicolumn{2}{c}{Speed} & \multicolumn{2}{c}{Euler error } \\ 
+	  	\toprule
+		& & \multicolumn{2}{c}{Speed} & \multicolumn{2}{c}{Euler Equation Error } \\ 
 		\multicolumn{2}{L{3cm}}{Number of Grid- points for $(a,h)$} & Seconds & Relative to ENDGM & Maximum for  $c\ ;\ i$ & Average for \newline $c\ ;\ i$\\ \hline
 		\multicolumn{6}{l}{ENDGM}\\
-		& $\left(  20,20  \right)$ &  $0.078$ &   -    & $-2.27;\ -1.74$ & $-3.14;\ -2.72$ \\
-		& $\left(  40,40  \right)$ &  $0.296$ &   -    & $-2.88;\ -2.25$ & $-3.64;\ -3.19$ \\
-		& $\left( 100,100 \right)$ &  $2.043$ &   -    & $-3.59;\ -2.96$ & $-4.49;\ -3.95$ \\
-		& $\left( 200,200 \right)$ & $10.577$ &   -    & $-4.13;\ -3.53$ & $-5.15;\ -4.46$ \\
+		& $\left(  25,25  \right)$ &  $0.110$ &   -    & $-2.08;\ -1.25$ & $-2.90;\ -2.79$ \\
+		& $\left(  50,50  \right)$ &  $0.499$ &   -    & $-2.36;\ -2.27$ & $-3.65;\ -3.55$ \\
+		& $\left( 100,100 \right)$ &  $2.168$ &   -    & $-2.97;\ -3.04$ & $-4.23;\ -4.11$ \\
+		& $\left( 200,200 \right)$ & $10.889$ &   -    & $-3.10;\ -3.18$ & $-4.81;\ -4.64$ \\
 		\multicolumn{6}{l}{}\\ 
 		\multicolumn{6}{l}{HEGM}\\
-		& $\left(  20,20  \right)$ &  $0.234$ & $3.0$ & $-2.27;\ -1.71$ & $-3.27;\ -2.85$ \\
-		& $\left(  40,40  \right)$ &  $0.889$ & $3.0$ & $-3.01;\ -2.27$ & $-3.81;\ -3.35$ \\
-		& $\left( 100,100 \right)$ &  $5.538$ & $2.7$ & $-3.62;\ -2.88$ & $-4.67;\ -3.93$ \\
-		& $\left( 200,200 \right)$ & $23.494$ & $2.2$ & $-4.17;\ -3.56$ & $-5.36;\ -4.40$ \\
+		& $\left(  25,25  \right)$ &  $0.343$ & $3.1$ & $-2.16;\ -2.07$ & $-2.95;\ -2.96$ \\
+		& $\left(  50,50  \right)$ &  $1.326$ & $2.7$ & $-2.46;\ -2.54$ & $-3.76;\ -3.64$ \\
+		& $\left( 100,100 \right)$ &  $5.335$ & $2.5$ & $-3.00;\ -3.08$ & $-4.34;\ -4.22$ \\
+		& $\left( 200,200 \right)$ & $21.762$ & $2.0$ & $-3.15;\ -3.23$ & $-4.94;\ -4.47$ \\
 		\multicolumn{6}{l}{}\\ 
 		\multicolumn{6}{l}{EXGM}\\
-		& $\left(  20,20  \right)$ &  $0.343$ & $4.4$ & $-2.33;\ -1,72$ & $-3.33;\ -2.86$ \\
-		& $\left(  40,40  \right)$ &  $1.326$ & $4.5$ & $-3.02;\ -2,28$ & $-3.87;\ -3.35$ \\
-		& $\left( 100,100 \right)$ &  $8.206$ & $4.0$ & $-3.71;\ -2,88$ & $-4.67;\ -3.93$ \\
-		& $\left( 200,200 \right)$ & $33.291$ & $3.2$ & $-4.20;\ -3,56$ & $-5.40;\ -4.40$ \\ 
+		& $\left(  25,25  \right)$ &  $0.562$ & $5.1$ & $-1.52;\ -1.64$ & $-2.85;\ -2.89$ \\
+		& $\left(  50,50  \right)$ &  $2.184$ & $4.4$ & $-1.83;\ -1.94$ & $-3.57;\ -3.52$ \\
+		& $\left( 100,100 \right)$ &  $8.596$ & $4.0$ & $-2.30;\ -2,41$ & $-4.19;\ -4.14$ \\
+		& $\left( 200,200 \right)$ & $34.960$ & $3.2$ & $-2.25;\ -2.36$ & $-4.63;\ -4.59$ \\ 
 		\bottomrule
 	\end{tabular}
 	\begin{tablenotes}[para,flushleft]
@@ -595,13 +596,13 @@ As in the finite horizon setting, ENDGM is the fastest method for not too many g
 \end{threeparttable}
 \end{table}
 
-\begin{figure}[htb]
+\begin{figure}[htbp]
 	\caption{Infinite Horizon Model: Speed}
 	\label{graph_infinte}
 	\centering
 	\begin{tabular}{cC{1cm}c}
 	Panel (a) & & Panel (b)  \\
-	\includegraphics[height=6.0cm, width=6.0cm]{Abbildungen/speed_all_finite_smart.eps} & & \includegraphics[height=6.0cm, width=6.0cm]{Abbildungen/rel_endgm_HEgm_infinite_smart.eps} \\
+	\includegraphics[height=6.0cm, width=6.0cm]{Abbildungen/seconds_Infinite.pdf} & & \includegraphics[height=6.0cm, width=6.0cm]{Abbildungen/Ratio_Infinite.pdf} \\
 	\end{tabular}
 	\caption*{\footnotesize{\emph{Notes:} Panel (a) Computing time to convergence of policy functions (criterion $\varepsilon=10^{-6}$) as a function of grid-points (with equally many grid-points in both dimensions). Solid line: computing time of EXGM; dotted line: computing time of HEGM; dashed-dotted line: computing time of ENDGM. Panel (b) Ratio of computing time to convergence of ENDGM and HEGM as a function of grid-points (with equally many grid-points in both dimensions).}}
 \end{figure}
