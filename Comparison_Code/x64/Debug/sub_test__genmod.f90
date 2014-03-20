@@ -1,0 +1,7 @@
+        !COMPILER-GENERATED INTERFACE MODULE: Thu Jul 04 10:23:48 2013
+        MODULE SUB_TEST__genmod
+          INTERFACE 
+            SUBROUTINE SUB_TEST
+            END SUBROUTINE SUB_TEST
+          END INTERFACE 
+        END MODULE SUB_TEST__genmod

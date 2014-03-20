@@ -1,0 +1,7 @@
+        !COMPILER-GENERATED INTERFACE MODULE: Tue Feb 25 10:58:51 2014
+        MODULE SUB_ENDO__genmod
+          INTERFACE 
+            SUBROUTINE SUB_ENDO
+            END SUBROUTINE SUB_ENDO
+          END INTERFACE 
+        END MODULE SUB_ENDO__genmod

@@ -1,0 +1,8 @@
+        !COMPILER-GENERATED INTERFACE MODULE: Mon Jul 01 18:01:18 2013
+        MODULE SUB_EXO_FAIL__genmod
+          INTERFACE 
+            SUBROUTINE SUB_EXO_FAIL(X)
+              REAL(KIND=8) :: X(2)
+            END SUBROUTINE SUB_EXO_FAIL
+          END INTERFACE 
+        END MODULE SUB_EXO_FAIL__genmod

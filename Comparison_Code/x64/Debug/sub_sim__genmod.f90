@@ -1,0 +1,7 @@
+        !COMPILER-GENERATED INTERFACE MODULE: Tue Feb 25 10:58:51 2014
+        MODULE SUB_SIM__genmod
+          INTERFACE 
+            SUBROUTINE SUB_SIM
+            END SUBROUTINE SUB_SIM
+          END INTERFACE 
+        END MODULE SUB_SIM__genmod

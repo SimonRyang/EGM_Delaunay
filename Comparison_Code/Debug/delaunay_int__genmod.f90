@@ -1,0 +1,15 @@
+        !COMPILER-GENERATED INTERFACE MODULE: Wed Feb 26 14:07:35 2014
+        MODULE DELAUNAY_INT__genmod
+          INTERFACE 
+            SUBROUTINE DELAUNAY_INT(XDASH,HDASH,CDASH,KDASH,VXDASH,     &
+     &VHDASH,VFDASH)
+              REAL(KIND=8) :: XDASH
+              REAL(KIND=8) :: HDASH
+              REAL(KIND=8), INTENT(OUT) :: CDASH
+              REAL(KIND=8), INTENT(OUT) :: KDASH
+              REAL(KIND=8), INTENT(OUT) :: VXDASH
+              REAL(KIND=8), INTENT(OUT) :: VHDASH
+              REAL(KIND=8), INTENT(OUT) :: VFDASH
+            END SUBROUTINE DELAUNAY_INT
+          END INTERFACE 
+        END MODULE DELAUNAY_INT__genmod

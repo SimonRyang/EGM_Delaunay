@@ -1,0 +1,7 @@
+        !COMPILER-GENERATED INTERFACE MODULE: Tue Feb 25 10:58:51 2014
+        MODULE SUB_OUT__genmod
+          INTERFACE 
+            SUBROUTINE SUB_OUT
+            END SUBROUTINE SUB_OUT
+          END INTERFACE 
+        END MODULE SUB_OUT__genmod

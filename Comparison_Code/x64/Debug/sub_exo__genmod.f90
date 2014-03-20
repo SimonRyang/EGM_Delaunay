@@ -1,0 +1,7 @@
+        !COMPILER-GENERATED INTERFACE MODULE: Tue Feb 25 10:58:50 2014
+        MODULE SUB_EXO__genmod
+          INTERFACE 
+            SUBROUTINE SUB_EXO
+            END SUBROUTINE SUB_EXO
+          END INTERFACE 
+        END MODULE SUB_EXO__genmod

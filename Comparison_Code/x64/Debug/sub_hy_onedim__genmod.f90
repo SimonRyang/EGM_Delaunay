@@ -1,0 +1,8 @@
+        !COMPILER-GENERATED INTERFACE MODULE: Sun May 13 14:56:24 2012
+        MODULE SUB_HY_ONEDIM__genmod
+          INTERFACE 
+            SUBROUTINE SUB_HY_ONEDIM(XB)
+              REAL(KIND=4) :: XB
+            END SUBROUTINE SUB_HY_ONEDIM
+          END INTERFACE 
+        END MODULE SUB_HY_ONEDIM__genmod

@@ -1,0 +1,8 @@
+        !COMPILER-GENERATED INTERFACE MODULE: Wed Jun 05 16:44:04 2013
+        MODULE SUB_HI_EULER__genmod
+          INTERFACE 
+            SUBROUTINE SUB_HI_EULER(X)
+              REAL(KIND=8), INTENT(OUT) :: X(2)
+            END SUBROUTINE SUB_HI_EULER
+          END INTERFACE 
+        END MODULE SUB_HI_EULER__genmod
